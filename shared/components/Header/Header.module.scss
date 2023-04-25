@@ -1,0 +1,10 @@
+.header {
+  backdrop-filter: blur(10px);
+  @apply border-0 border-b border-solid flex h-16 items-center justify-center px-2 sticky top-0 w-full z-10 md:px-4 xl:px-0;
+  &-wrapper {
+    @apply flex items-center justify-between xl:w-[1240px] w-full;
+  }
+  &-title {
+    @apply tracking-widest uppercase;
+  }
+}
