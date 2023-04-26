@@ -13,8 +13,8 @@ import createEmotionServer from '@emotion/server/create-instance';
 import { MyAppProps } from './_app';
 
 // Utils
-import createEmotionCache from '@/shared/utils/create-emotion-cache';
-import { darkTheme } from '@/shared/utils/theme';
+import createEmotionCache from '@/src/utils/create-emotion-cache';
+import { darkTheme } from '@/src/utils/theme';
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];

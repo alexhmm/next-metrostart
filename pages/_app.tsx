@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { EmotionCache } from '@emotion/react';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
 
 // Components
-import Header from '@/shared/components/Header/Header';
+import Header from '@/src/components/Header/Header';
 
 // Styles
-import '@/shared/styles/globals.scss';
+import '@/src/styles/globals.scss';
 
 // Utils
-import createEmotionCache from '@/shared/utils/create-emotion-cache';
-import PageProvider from '@/shared/providers/PageProvider';
+import createEmotionCache from '@/src/utils/create-emotion-cache';
+import PageProvider from '@/src/providers/PageProvider';
+import '@/src/utils/fa';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
