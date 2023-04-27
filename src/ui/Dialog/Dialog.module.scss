@@ -1,0 +1,14 @@
+.dialog {
+  &-title {
+    @apply flex items-center justify-between p-4;
+    &-close {
+      @apply ml-2 shrink-0;
+    }
+    &-text {
+      @apply truncate pl-2;
+    }
+  }
+  &-width {
+    @apply min-w-[300px] md:min-w-[560px] max-w-full;
+  }
+}

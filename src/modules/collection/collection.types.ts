@@ -1,6 +1,11 @@
-export interface GridItem {
+export interface LinkItem {
   id: string;
   favicon: string;
-  title: string;
+  name: string;
   url: string;
+}
+
+export interface LinkItemPostPatchRequest {
+  name?: string;
+  url?: string;
 }

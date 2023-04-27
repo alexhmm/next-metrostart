@@ -12,21 +12,29 @@ declare module '@mui/material/styles' {
   interface Palette {
     bg: {
       card: string;
+      dialog: string;
+      form: string;
     };
   }
 
   interface PaletteOptions {
     bg: {
       card: string;
+      dialog: string;
+      form: string;
     };
   }
 
   interface PaletteColor {
     card?: string;
+    dialog?: string;
+    form?: string;
   }
 
   interface SimplePaletteColorOptions {
     card?: string;
+    dialog?: string;
+    form?: string;
   }
 }
 
@@ -54,6 +62,8 @@ export const darkTheme = createTheme({
     },
     bg: {
       card: 'rgba(255, 255, 255, 0.05)',
+      dialog: '#232323',
+      form: '#3c3c3c',
     },
     error,
     mode: 'dark',
@@ -70,6 +80,8 @@ export const lightTheme = createTheme({
     },
     bg: {
       card: 'rgba(0, 0, 0, 0.05)',
+      dialog: '#f3f6f9',
+      form: '#eaeaea',
     },
     error,
     mode: 'light',

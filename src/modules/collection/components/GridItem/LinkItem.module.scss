@@ -1,4 +1,4 @@
-.grid-item {
+.link-item {
   @apply aspect-square duration-200 flex flex-col items-center justify-center normal-case p-10 relative rounded-none transition-colors w-full;
   &-title {
     @apply absolute bottom-1 left-0 px-2 shrink-0 truncate w-full;

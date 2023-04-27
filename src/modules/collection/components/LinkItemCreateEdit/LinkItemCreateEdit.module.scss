@@ -1,0 +1,9 @@
+.link-item-create-edit {
+  @apply flex flex-col mt-2;
+  &-actions {
+    @apply flex items-center justify-end;
+  }
+  &-item {
+    @apply mb-4;
+  }
+}

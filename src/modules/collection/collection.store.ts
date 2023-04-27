@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 
 // Types
-import { GridItem } from '@/src/modules/collection/collection.types';
+import { LinkItem } from '@/src/modules/collection/collection.types';
 
 export interface CollectionState {
-  collection: GridItem[];
-  setCollection: (collection: GridItem[]) => void;
+  collection: LinkItem[];
+  setCollection: (collection: LinkItem[]) => void;
 }
 
 const useCollectionStore = create<CollectionState>((set) => ({
@@ -13,18 +13,18 @@ const useCollectionStore = create<CollectionState>((set) => ({
     {
       id: '1',
       favicon: 'https://github.com/fluidicon.png',
-      title: 'Github',
+      name: 'Github',
       url: 'https://github.com',
     },
     {
       id: '2',
       favicon:
         'https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png',
-      title: 'Netflix',
+      name: 'Netflix',
       url: 'https://www.netflix.com/',
     },
   ],
-  setCollection: (collection: GridItem[]) => {
+  setCollection: (collection: LinkItem[]) => {
     set({ collection });
   },
 }));
