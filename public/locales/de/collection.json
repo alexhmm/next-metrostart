@@ -1,0 +1,16 @@
+{
+  "create_edit": {
+    "name": {
+      "error": "Der Name wird benötigt",
+      "label": "Name",
+      "placeholder": "Name der Verknüpfung"
+    },
+    "title_create": "Verknüpfung hinzufügen",
+    "title_edit": "Verknüpfung bearbeiten",
+    "url": {
+      "error": "Die URL wird benötigt",
+      "label": "URL",
+      "placeholder": "URL der Verknüpfung"
+    }
+  }
+}

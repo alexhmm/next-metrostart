@@ -1,0 +1,16 @@
+{
+  "create_edit": {
+    "name": {
+      "error": "A name is required",
+      "label": "Name",
+      "placeholder": "Name of link"
+    },
+    "title_create": "Create link",
+    "title_edit": "Edit link",
+    "url": {
+      "error": "An URL is required",
+      "label": "URL",
+      "placeholder": "URL of link"
+    }
+  }
+}

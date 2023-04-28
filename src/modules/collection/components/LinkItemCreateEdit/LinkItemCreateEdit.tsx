@@ -1,4 +1,5 @@
 import { FC, memo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,13 +20,15 @@ type LinkItemCreateEditProps = {
 };
 
 const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
+  const { t } = useTranslation();
+
   // React hook form validation schema
   const details = z.object({
     name: z.string().min(1, {
-      message: 'A name is required',
+      message: t<any>('collection:create_edit.name.error'),
     }),
     url: z.string().min(1, {
-      message: 'An URL is required',
+      message: t<any>('collection:create_edit.url.error'),
     }),
   });
 
@@ -60,17 +63,17 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
     >
       <Input
         classes={styles['link-item-create-edit-item']}
-        label="Name"
+        label={t<any>('collection:create_edit.name.label')}
         message={errors?.name && errors.name.message?.toString()}
-        placeholder="Name of link"
+        placeholder={t<any>('collection:create_edit.name.placeholder')}
         register={register('name')}
         state={errors?.name && ResultState.Error}
       />
       <Input
         classes={styles['link-item-create-edit-item']}
-        label="URL"
+        label={t<any>('collection:create_edit.url.label')}
         message={errors?.url && errors.url.message?.toString()}
-        placeholder="URL to link"
+        placeholder={t<any>('collection:create_edit.url.placeholder')}
         register={register('url')}
         state={errors?.url && ResultState.Error}
       />

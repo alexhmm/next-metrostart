@@ -1,5 +1,10 @@
 import { useState } from 'react';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Typography } from '@mui/material';
 
 // Components
@@ -16,7 +21,15 @@ import styles from './Home.module.scss';
 import Dialog from '@/src/ui/Dialog/Dialog';
 import IconButton from '@/src/ui/IconButton/IconButton';
 
-export default function Home() {
+export default function Home(
+  _props: InferGetStaticPropsType<typeof getStaticProps>
+) {
+  const router = useRouter();
+  const { t } = useTranslation();
+
+  // Change language
+  const changeTo = router.locale === 'en' ? 'de' : 'en';
+
   // Component state
   const [linkAddEdit, setLinkAddEdit] = useState<boolean>(false);
 
@@ -61,6 +74,12 @@ export default function Home() {
             <LinkItem key={item.id} item={item} />
           ))}
         </div>
+        <Link href="/" locale={changeTo}>
+          {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
+          <button>
+            {t<any>('common:settings.language.title', { changeTo })}
+          </button>
+        </Link>
         <Dialog
           open={linkAddEdit}
           title="Link hinzufügen"
@@ -68,6 +87,7 @@ export default function Home() {
         >
           <LinkItemCreateEdit />
         </Dialog>
+
         <div>Content</div>
         <div>Content</div>
         <div>Content</div>
@@ -116,3 +136,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', ['common', 'collection'])),
+  },
+});

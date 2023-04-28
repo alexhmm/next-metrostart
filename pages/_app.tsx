@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import { appWithTranslation } from 'next-i18next';
 import { EmotionCache } from '@emotion/react';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -23,7 +24,7 @@ export interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
-export default function App(props: MyAppProps) {
+function App(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   // Remove the server-side injected CSS.
@@ -41,3 +42,5 @@ export default function App(props: MyAppProps) {
     </PageProvider>
   );
 }
+
+export default appWithTranslation(App);

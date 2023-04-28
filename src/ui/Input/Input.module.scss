@@ -1,7 +1,7 @@
 .input {
   @apply relative w-full;
   &-label {
-    @apply absolute font-bold left-3 px-1 text-xs -top-2 transition-opacity z-10;
+    @apply absolute font-semibold left-3 px-1 text-xs -top-2 transition-opacity z-10;
   }
   &-outlined {
     @apply transition-all w-full;
