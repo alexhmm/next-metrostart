@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Typography } from '@mui/material';
 
 // Components
-import LinkItem from '@/src/modules/collection/components/GridItem/LinkItem';
+import LinkItem from '@/src/modules/collection/components/LinkItem/LinkItem';
 import LinkItemCreateEdit from '@/src/modules/collection/components/LinkItemCreateEdit/LinkItemCreateEdit';
 
 // Stores
@@ -16,6 +16,9 @@ import useCollectionStore from '@/src/modules/collection/collection.store';
 
 // Styles
 import styles from './Home.module.scss';
+
+// Types
+import { Collection } from '@/src/modules/collection/collection.types';
 
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
@@ -31,13 +34,27 @@ export default function Home(
   const changeTo = router.locale === 'en' ? 'de' : 'en';
 
   // Component state
-  const [linkAddEdit, setLinkAddEdit] = useState<boolean>(false);
+  const [linkAddEdit, setLinkCreateEdit] = useState<boolean>(false);
 
   // Collection store state
   const [collection, setCollection] = useCollectionStore((state) => [
     state.collection,
     state.setCollection,
   ]);
+
+  // Set collection data on mount
+  useEffect(() => {
+    // Doing this in zustand store directly:
+    // Unhandled Runtime Error
+    // Error: Hydration failed because the initial UI does not match what was rendered on the server.
+    if (typeof window !== 'undefined') {
+      const initialCollections: Collection[] = JSON.parse(
+        localStorage.getItem('collections') ?? '[]'
+      );
+      if (initialCollections && initialCollections[0])
+        setCollection(initialCollections[0]);
+    }
+  }, []);
 
   return (
     <>
@@ -50,28 +67,16 @@ export default function Home(
             className={styles['home-collection-header-title']}
             variant="h5"
           >
-            Collection
+            {collection?.name ?? ''}
           </Typography>
           <IconButton
             icon={['fas', 'plus']}
-            // onClick={() => {
-            //   setCollection([
-            //     ...collection,
-            //     {
-            //       id: new Date().toString(),
-            //       favicon:
-            //         'https://static.whatsapp.net/rsrc.php/v3/yz/r/ujTY9i_Jhs1.png',
-            //       title: 'Whatsapp',
-            //       url: 'https://whatsapp.com',
-            //     },
-            //   ]);
-            // }}
-            onClick={() => setLinkAddEdit(true)}
+            onClick={() => setLinkCreateEdit(true)}
           />
         </div>
         <div className={styles['home-collection-content']}>
-          {collection.map((item) => (
-            <LinkItem key={item.id} item={item} />
+          {collection?.links?.map((link) => (
+            <LinkItem key={link.id} item={link} />
           ))}
         </div>
         <Link href="/" locale={changeTo}>
@@ -83,9 +88,9 @@ export default function Home(
         <Dialog
           open={linkAddEdit}
           title="Link hinzufügen"
-          onClose={() => setLinkAddEdit(false)}
+          onClose={() => setLinkCreateEdit(false)}
         >
-          <LinkItemCreateEdit />
+          <LinkItemCreateEdit onClose={() => setLinkCreateEdit(false)} />
         </Dialog>
 
         <div>Content</div>

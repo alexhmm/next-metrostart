@@ -1,30 +1,23 @@
 import { create } from 'zustand';
 
 // Types
-import { LinkItem } from '@/src/modules/collection/collection.types';
+import { Collection } from '@/src/modules/collection/collection.types';
 
 export interface CollectionState {
-  collection: LinkItem[];
-  setCollection: (collection: LinkItem[]) => void;
+  collection: Collection | undefined;
+  setCollection: (collection: Collection) => void;
 }
 
-const useCollectionStore = create<CollectionState>((set) => ({
-  collection: [
-    {
-      id: '1',
-      favicon: 'https://github.com/fluidicon.png',
-      name: 'Github',
-      url: 'https://github.com',
-    },
-    {
-      id: '2',
-      favicon:
-        'https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png',
-      name: 'Netflix',
-      url: 'https://www.netflix.com/',
-    },
-  ],
-  setCollection: (collection: LinkItem[]) => {
+// Doing this in zustand store directly:
+// Unhandled Runtime Error
+// Error: Hydration failed because the initial UI does not match what was rendered on the server.
+// const collections: Collection[] =
+//   typeof window !== 'undefined' &&
+//   JSON.parse(localStorage.getItem('collections') ?? '[]');
+const useCollectionStore = create<CollectionState>((set, get) => ({
+  // collection: collections && collections[0]?.items ? collections[0].items : [],
+  collection: undefined,
+  setCollection: (collection: Collection | undefined) => {
     set({ collection });
   },
 }));

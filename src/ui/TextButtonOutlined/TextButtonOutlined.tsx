@@ -8,6 +8,7 @@ import styles from './TextButtonOutlined.module.scss';
 type TextButtonOutlinedProps = {
   children: ReactNode;
   classes?: string;
+  disabled?: boolean;
   sx?: SxProps<Theme>;
   type?: 'reset' | 'submit';
   onClick?: () => void;
@@ -22,6 +23,7 @@ const TextButtonOutlined = (props: TextButtonOutlinedProps) => {
           props.classes && props.classes
         ),
       }}
+      disabled={props.disabled}
       variant="outlined"
       sx={{
         ...props.sx,

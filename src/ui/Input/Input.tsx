@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { Box, OutlinedInput, SxProps, Theme } from '@mui/material';
@@ -17,6 +17,7 @@ import { darkTheme, lightTheme } from '@/src/utils/theme';
 import { ResultMessage } from '../ResultMessage/ResultMessage';
 
 type InputProps = {
+  autoFocus?: boolean;
   classes?: string;
   defaultValue?: string;
   disabled?: boolean;
@@ -34,11 +35,19 @@ type InputProps = {
 const Input = (props: InputProps) => {
   const { theme } = useTheme();
 
+  // Refs
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   // Component state
   const [sxColors, setSxColors] = useState<SxProps<Theme> | undefined>(
     undefined
   );
   const [label, setLabel] = useState<string | undefined>(undefined);
+
+  // Auto focus on mount
+  useEffect(() => {
+    props.autoFocus && inputRef.current && inputRef.current.focus();
+  }, [inputRef.current, props.autoFocus]);
 
   // Set input colors by result state and theme
   useEffect(() => {
@@ -115,6 +124,7 @@ const Input = (props: InputProps) => {
         minRows={props.multiline && props.multiline}
         multiline={props.multiline ? true : false}
         placeholder={props.placeholder}
+        inputRef={inputRef}
         sx={{
           fontSize: 14,
           height: props.fullHeight ? '100%' : undefined,
