@@ -23,6 +23,7 @@ import { Collection } from '@/src/modules/collection/collection.types';
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
 import IconButton from '@/src/ui/IconButton/IconButton';
+import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
 export default function Home(
   _props: InferGetStaticPropsType<typeof getStaticProps>
@@ -34,7 +35,7 @@ export default function Home(
   const changeTo = router.locale === 'en' ? 'de' : 'en';
 
   // Component state
-  const [linkAddEdit, setLinkCreateEdit] = useState<boolean>(false);
+  const [linkCreateEdit, setLinkCreateEdit] = useState<boolean>(false);
 
   // Collection store state
   const [collection, setCollection] = useCollectionStore((state) => [
@@ -67,76 +68,40 @@ export default function Home(
             className={styles['home-collection-header-title']}
             variant="h5"
           >
-            {collection?.name ?? ''}
+            {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
+            {collection?.name ?? t<any>('collection:title')}
           </Typography>
           <IconButton
             icon={['fas', 'plus']}
             onClick={() => setLinkCreateEdit(true)}
           />
         </div>
+        {(!collection ||
+          (collection?.links && collection?.links.length < 1)) && (
+          <TextButtonOutlined
+            classes="w-fit"
+            onClick={() => setLinkCreateEdit(true)}
+          >
+            {t<any>('collection:link.create_edit.title_create')}
+          </TextButtonOutlined>
+        )}
         <div className={styles['home-collection-content']}>
           {collection?.links?.map((link) => (
             <LinkItem key={link.id} item={link} />
           ))}
         </div>
-        <Link href="/" locale={changeTo}>
-          {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
-          <button>
-            {t<any>('common:settings.language.title', { changeTo })}
-          </button>
-        </Link>
         <Dialog
-          open={linkAddEdit}
-          title="Link hinzufügen"
+          open={linkCreateEdit}
+          title={t<any>('collection:link.create_edit.title_create').toString()}
           onClose={() => setLinkCreateEdit(false)}
         >
           <LinkItemCreateEdit onClose={() => setLinkCreateEdit(false)} />
         </Dialog>
-
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Link href="/" locale={changeTo}>
+          <TextButtonOutlined classes="mt-4">
+            {t<any>('common:settings.language.title', { changeTo })}
+          </TextButtonOutlined>
+        </Link>
       </main>
     </>
   );
