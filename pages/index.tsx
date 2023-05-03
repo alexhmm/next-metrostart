@@ -11,6 +11,9 @@ import { Typography } from '@mui/material';
 import LinkItem from '@/src/modules/collection/components/LinkItem/LinkItem';
 import LinkItemCreateEdit from '@/src/modules/collection/components/LinkItemCreateEdit/LinkItemCreateEdit';
 
+// Hooks
+import useCollection from '@/src/modules/collection/use-collection.hook';
+
 // Stores
 import useCollectionStore from '@/src/modules/collection/collection.store';
 
@@ -23,12 +26,14 @@ import { Collection } from '@/src/modules/collection/collection.types';
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
 import IconButton from '@/src/ui/IconButton/IconButton';
+import Menu from '@/src/ui/Menu/Menu';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
 export default function Home(
   _props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   const router = useRouter();
+  const { getMenuActions } = useCollection();
   const { t } = useTranslation();
 
   // Change language
@@ -71,10 +76,18 @@ export default function Home(
             {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
             {collection?.name ?? t<any>('collection:title')}
           </Typography>
-          <IconButton
-            icon={['fas', 'plus']}
-            onClick={() => setLinkCreateEdit(true)}
-          />
+          <div className={styles['home-collection-header-actions']}>
+            <Menu
+              icon={['fas', 'ellipsis-v']}
+              items={getMenuActions()}
+              onAction={(action) => console.log('MenuAction', action)}
+            />
+            <IconButton
+              classes={styles['home-collection-header-actions-create-item']}
+              icon={['fas', 'plus']}
+              onClick={() => setLinkCreateEdit(true)}
+            />
+          </div>
         </div>
         {(!collection ||
           (collection?.links && collection?.links.length < 1)) && (

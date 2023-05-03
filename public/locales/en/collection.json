@@ -1,4 +1,21 @@
 {
+  "create_edit": {
+    "description": {
+      "label": "Description",
+      "placeholder": "Description of Collection"
+    },
+    "name": {
+      "error": "A name is required",
+      "label": "Name",
+      "placeholder": "Name of collection"
+    },
+    "title_create": "Create collection",
+    "title_edit": "Edit collection"
+  },
+  "delete": {
+    "text": "Confirm to delete collection?",
+    "title": "Delete collection"
+  },
   "link": {
     "create_edit": {
       "name": {

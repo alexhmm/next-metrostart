@@ -5,6 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 // } from '@fortawesome/free-regular-svg-icons';
 
 import {
+  faEllipsisV as fasEllipsisV,
   faPlus as fasPlus,
   faTimes as fasTimes,
 } from '@fortawesome/free-solid-svg-icons';
@@ -13,4 +14,4 @@ import {
 // library.add(farHeart, farSquareMinus, farSquarePlus);
 
 // Add free solid icons to libary
-library.add(fasPlus, fasTimes);
+library.add(fasEllipsisV, fasPlus, fasTimes);

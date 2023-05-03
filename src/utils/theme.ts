@@ -80,7 +80,7 @@ export const lightTheme = createTheme({
     },
     bg: {
       card: 'rgba(0, 0, 0, 0.05)',
-      dialog: '#f3f6f9',
+      dialog: '#ffffff',
       form: '#eaeaea',
     },
     error,

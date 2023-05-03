@@ -5,9 +5,12 @@
       @apply gap-2 grid grid-cols-3 sm:gap-3 sm:grid-cols-4 md:grid-cols-5 lg:gap-4 lg:grid-cols-7 xl:grid-cols-8;
     }
     &-header {
-      @apply flex items-center justify-between mb-2 lg:mb-4;
-      &-add {
-        @apply shrink-0;
+      @apply flex items-center justify-between mb-2 lg:justify-start lg:mb-4;
+      &-actions {
+        @apply ml-2 shrink-0 lg:ml-4;
+        &-create-item {
+          @apply ml-2 lg:ml-4;
+        }
       }
       &-title {
         @apply truncate;
