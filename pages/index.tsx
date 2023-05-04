@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Typography } from '@mui/material';
 
 // Components
+import CollectionCreateEdit from '@/src/modules/collection/components/CollectionCreateEdit/CollectionCreateEdit';
 import LinkItem from '@/src/modules/collection/components/LinkItem/LinkItem';
 import LinkItemCreateEdit from '@/src/modules/collection/components/LinkItemCreateEdit/LinkItemCreateEdit';
 
@@ -22,6 +23,7 @@ import styles from './Home.module.scss';
 
 // Types
 import { Collection } from '@/src/modules/collection/collection.types';
+import { CrudAction } from '@/src/types/shared.types';
 
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
@@ -29,7 +31,7 @@ import IconButton from '@/src/ui/IconButton/IconButton';
 import Menu from '@/src/ui/Menu/Menu';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
-export default function Home(
+export default function HomePage(
   _props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   const router = useRouter();
@@ -40,6 +42,10 @@ export default function Home(
   const changeTo = router.locale === 'en' ? 'de' : 'en';
 
   // Component state
+  const [collectionCreate, setCollectionCreate] = useState<boolean>(false);
+  const [collectionEdit, setCollectionEdit] = useState<string | undefined>(
+    undefined
+  );
   const [linkCreateEdit, setLinkCreateEdit] = useState<boolean>(false);
 
   // Collection store state
@@ -62,6 +68,29 @@ export default function Home(
     }
   }, []);
 
+  // ######### //
+  // CALLBACKS //
+  // ######### //
+
+  /**
+   * Handler on menu action
+   */
+  const onMenuAction = useCallback(
+    (action: CrudAction) => {
+      switch (action) {
+        case CrudAction.Create:
+          setCollectionCreate(true);
+          break;
+        case CrudAction.Update:
+          collection?.id && setCollectionEdit(collection.id);
+          break;
+        default:
+          break;
+      }
+    },
+    [collection]
+  );
+
   return (
     <>
       <Head>
@@ -69,25 +98,37 @@ export default function Home(
       </Head>
       <main className={styles['home']}>
         <div className={styles['home-collection-header']}>
-          <Typography
-            className={styles['home-collection-header-title']}
-            variant="h5"
-          >
-            {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
-            {collection?.name ?? t<any>('collection:title')}
-          </Typography>
-          <div className={styles['home-collection-header-actions']}>
-            <Menu
-              icon={['fas', 'ellipsis-v']}
-              items={getMenuActions()}
-              onAction={(action) => console.log('MenuAction', action)}
-            />
-            <IconButton
-              classes={styles['home-collection-header-actions-create-item']}
-              icon={['fas', 'plus']}
-              onClick={() => setLinkCreateEdit(true)}
-            />
+          <div className={styles['home-collection-header-main']}>
+            <Typography
+              className={styles['home-collection-header-main-title']}
+              variant="h5"
+            >
+              {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
+              {collection?.name ?? t<any>('collection:title')}
+            </Typography>
+            <div className={styles['home-collection-header-main-actions']}>
+              <Menu
+                icon={['fas', 'ellipsis-v']}
+                items={getMenuActions()}
+                onAction={onMenuAction}
+              />
+              <IconButton
+                classes={
+                  styles['home-collection-header-main-actions-create-item']
+                }
+                icon={['fas', 'plus']}
+                onClick={() => setLinkCreateEdit(true)}
+              />
+            </div>
           </div>
+          {collection?.description && (
+            <Typography
+              color="text.secondary"
+              className={styles['home-collection-header-description']}
+            >
+              {collection.description}
+            </Typography>
+          )}
         </div>
         {(!collection ||
           (collection?.links && collection?.links.length < 1)) && (
@@ -103,6 +144,22 @@ export default function Home(
             <LinkItem key={link.id} item={link} />
           ))}
         </div>
+        <Dialog
+          open={collectionCreate || !!collectionEdit}
+          title={t<any>('collection:create_edit.title_create').toString()}
+          onClose={() => {
+            setCollectionCreate(false);
+            setCollectionEdit(undefined);
+          }}
+        >
+          <CollectionCreateEdit
+            id={collectionEdit}
+            onClose={() => {
+              setCollectionCreate(false);
+              setCollectionEdit(undefined);
+            }}
+          />
+        </Dialog>
         <Dialog
           open={linkCreateEdit}
           title={t<any>('collection:link.create_edit.title_create').toString()}

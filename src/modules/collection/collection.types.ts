@@ -5,6 +5,11 @@ export interface Collection {
   links: LinkItem[];
 }
 
+export interface CollectionPostPatchRequest {
+  description?: string;
+  name: string;
+}
+
 export interface LinkItem {
   id: string;
   icon: string | undefined;
