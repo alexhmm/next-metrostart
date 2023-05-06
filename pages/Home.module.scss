@@ -9,15 +9,12 @@
       &-description {
         @apply text-sm;
       }
-      &-main {
-        @apply flex items-center justify-between lg:justify-start;
-        &-actions {
+      &-title {
+        @apply flex items-center justify-between mb-1 lg:justify-start lg:mb-2;
+        &-menu {
           @apply ml-2 shrink-0 lg:ml-4;
-          &-create-item {
-            @apply ml-2 lg:ml-4;
-          }
         }
-        &-title {
+        &-text {
           @apply truncate;
         }
       }

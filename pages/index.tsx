@@ -27,7 +27,6 @@ import { CrudAction } from '@/src/types/shared.types';
 
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
-import IconButton from '@/src/ui/IconButton/IconButton';
 import Menu from '@/src/ui/Menu/Menu';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
@@ -79,7 +78,7 @@ export default function HomePage(
     (action: CrudAction) => {
       switch (action) {
         case CrudAction.Create:
-          setCollectionCreate(true);
+          setLinkCreateEdit(true);
           break;
         case CrudAction.Update:
           collection?.id && setCollectionEdit(collection.id);
@@ -98,28 +97,20 @@ export default function HomePage(
       </Head>
       <main className={styles['home']}>
         <div className={styles['home-collection-header']}>
-          <div className={styles['home-collection-header-main']}>
+          <div className={styles['home-collection-header-title']}>
             <Typography
-              className={styles['home-collection-header-main-title']}
+              className={styles['home-collection-header-title-text']}
               variant="h5"
             >
               {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
               {collection?.name ?? t<any>('collection:title')}
             </Typography>
-            <div className={styles['home-collection-header-main-actions']}>
-              <Menu
-                icon={['fas', 'ellipsis-v']}
-                items={getMenuActions()}
-                onAction={onMenuAction}
-              />
-              <IconButton
-                classes={
-                  styles['home-collection-header-main-actions-create-item']
-                }
-                icon={['fas', 'plus']}
-                onClick={() => setLinkCreateEdit(true)}
-              />
-            </div>
+            <Menu
+              classes={styles['home-collection-header-title-menu']}
+              icon={['fas', 'ellipsis-v']}
+              items={getMenuActions()}
+              onAction={onMenuAction}
+            />
           </div>
           {collection?.description && (
             <Typography
@@ -143,6 +134,12 @@ export default function HomePage(
           {collection?.links?.map((link) => (
             <LinkItem key={link.id} item={link} />
           ))}
+          {collection?.links && collection?.links?.length > 0 && (
+            <LinkItem
+              type={CrudAction.Create}
+              onClick={() => onMenuAction(CrudAction.Create)}
+            />
+          )}
         </div>
         <Dialog
           open={collectionCreate || !!collectionEdit}

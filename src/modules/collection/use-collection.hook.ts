@@ -11,6 +11,10 @@ const useCollection = () => {
   const getMenuActions = (): MenuItem[] => {
     return [
       {
+        action: CrudAction.Create,
+        title: t<any>('collection:link.create_edit.title_create'),
+      },
+      {
         action: CrudAction.Update,
         title: t<any>('collection:create_edit.title_edit'),
       },
