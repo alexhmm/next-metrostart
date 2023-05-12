@@ -9,6 +9,7 @@ import { Typography } from '@mui/material';
 
 // Components
 import CollectionCreateEdit from '@/src/modules/collection/components/CollectionCreateEdit/CollectionCreateEdit';
+import CollectionDelete from '@/src/modules/collection/components/CollectionDelete/CollectionDelete';
 import LinkItem from '@/src/modules/collection/components/LinkItem/LinkItem';
 import LinkItemCreateEdit from '@/src/modules/collection/components/LinkItemCreateEdit/LinkItemCreateEdit';
 
@@ -42,6 +43,9 @@ export default function HomePage(
 
   // Component state
   const [collectionCreate, setCollectionCreate] = useState<boolean>(false);
+  const [collectionDelete, setCollectionDelete] = useState<string | undefined>(
+    undefined
+  );
   const [collectionEdit, setCollectionEdit] = useState<string | undefined>(
     undefined
   );
@@ -79,6 +83,9 @@ export default function HomePage(
       switch (action) {
         case CrudAction.Create:
           setLinkCreateEdit(true);
+          break;
+        case CrudAction.Delete:
+          collection?.id && setCollectionDelete(collection.id);
           break;
         case CrudAction.Update:
           collection?.id && setCollectionEdit(collection.id);
@@ -156,6 +163,18 @@ export default function HomePage(
               setCollectionEdit(undefined);
             }}
           />
+        </Dialog>
+        <Dialog
+          open={!!collectionDelete}
+          title={t<any>('collection:delete.title').toString()}
+          onClose={() => setCollectionDelete(undefined)}
+        >
+          {collection && collection.id && (
+            <CollectionDelete
+              id={collection.id}
+              onClose={() => setCollectionDelete(undefined)}
+            />
+          )}
         </Dialog>
         <Dialog
           open={linkCreateEdit}

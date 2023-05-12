@@ -4,16 +4,11 @@
       "label": "Beschreibung",
       "placeholder": "Beschreibung der Sammlung"
     },
-    "name": {
-      "error": "Der Name wird benötigt",
-      "label": "Name",
-      "placeholder": "Name der Sammlung"
-    },
     "title_create": "Sammlung hinzufügen",
     "title_edit": "Sammlung bearbeiten"
   },
   "delete": {
-    "text": "Sammlung wirklich löschen?",
+    "text": "Tippe den Namen ein um die Sammlung zu löschen.",
     "title": "Sammlung löschen"
   },
   "link": {
@@ -31,6 +26,11 @@
         "placeholder": "URL der Verknüpfung"
       }
     }
+  },
+  "name": {
+    "error": "Der Name wird benötigt",
+    "label": "Name",
+    "placeholder": "Name der Sammlung"
   },
   "title": "Sammlung"
 }

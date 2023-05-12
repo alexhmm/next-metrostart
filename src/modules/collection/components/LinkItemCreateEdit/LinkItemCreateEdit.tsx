@@ -5,6 +5,9 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
 
+// Hooks
+import useCollection from '../../use-collection.hook';
+
 // Stores
 import useCollectionStore from '../../collection.store';
 
@@ -29,6 +32,7 @@ type LinkItemCreateEditProps = {
 };
 
 const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
+  const { createCollection } = useCollection();
   const { t } = useTranslation();
 
   // Collection store state
@@ -76,14 +80,17 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
 
         const id = uuidv4();
 
-        // Set collection object
-        const updatedCollection: Collection = collection
-          ? { ...collection, links: [...collection.links, link] }
-          : {
-              id,
-              links: [link],
-              name: `${t<any>('collection:title')} ${id}`,
-            };
+        // Check if collection exists and add created link
+        let updatedCollection: Collection | undefined;
+        if (collection) {
+          updatedCollection = {
+            ...collection,
+            links: [...collection.links, link],
+          };
+        } else {
+          updatedCollection = createCollection();
+          updatedCollection.links = [link];
+        }
         setCollection(updatedCollection);
 
         // Update LocalStorage

@@ -5,10 +5,10 @@ import { Collection } from '@/src/modules/collection/collection.types';
 
 export interface CollectionState {
   collection: Collection | undefined;
-  setCollection: (collection: Collection) => void;
+  setCollection: (collection: Collection | undefined) => void;
 }
 
-// Doing this in zustand store directly:
+// #todo: Doing this in zustand store directly:
 // Unhandled Runtime Error
 // Error: Hydration failed because the initial UI does not match what was rendered on the server.
 // const collections: Collection[] =

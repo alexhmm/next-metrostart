@@ -1,0 +1,12 @@
+.collection-delete {
+  @apply flex flex-col;
+  &-name {
+    @apply mb-4;
+  }
+  &-submit {
+    @apply flex justify-end;
+  }
+  &-text {
+    @apply mb-2;
+  }
+}

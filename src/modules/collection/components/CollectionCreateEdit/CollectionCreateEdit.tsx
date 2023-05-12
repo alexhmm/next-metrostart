@@ -42,7 +42,7 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
   const linkItemCreateEditSchema = z.object({
     description: z.string(),
     name: z.string().min(1, {
-      message: t<any>('collection:create_edit.name.error'),
+      message: t<any>('collection:name.error'),
     }),
   });
 
@@ -108,9 +108,9 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
         autoFocus
         classes={styles['collection-create-edit-item']}
         defaultValue={collection?.name}
-        label={t<any>('collection:create_edit.name.label')}
+        label={t<any>('collection:name.label')}
         message={errors?.name && errors.name.message?.toString()}
-        placeholder={t<any>('collection:link.create_edit.name.placeholder')}
+        placeholder={t<any>('collection:name.placeholder')}
         register={register('name')}
         state={errors?.name && ResultState.Error}
       />

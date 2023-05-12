@@ -4,16 +4,11 @@
       "label": "Description",
       "placeholder": "Description of Collection"
     },
-    "name": {
-      "error": "A name is required",
-      "label": "Name",
-      "placeholder": "Name of collection"
-    },
     "title_create": "Create collection",
     "title_edit": "Edit collection"
   },
   "delete": {
-    "text": "Confirm to delete collection?",
+    "text": "Type the name of the collection to confirm deletion.",
     "title": "Delete collection"
   },
   "link": {
@@ -31,6 +26,11 @@
         "placeholder": "URL of link"
       }
     }
+  },
+  "name": {
+    "error": "The name is required",
+    "label": "Name",
+    "placeholder": "Name of collection"
   },
   "title": "Collection"
 }

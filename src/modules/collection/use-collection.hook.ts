@@ -1,11 +1,28 @@
-import { CrudAction, MenuItem } from '@/src/types/shared.types';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
+
+// Types
+import { CrudAction, MenuItem } from '@/src/types/shared.types';
 
 const useCollection = () => {
   const { t } = useTranslation();
 
   /**
-   *
+   * Create empty collection item.
+   * @returns
+   */
+  const createCollection = () => {
+    const id = uuidv4();
+
+    return {
+      id,
+      links: [],
+      name: `${t<any>('collection:title')} ${id}`,
+    };
+  };
+
+  /**
+   * Get collection menu items.
    * @returns
    */
   const getMenuActions = (): MenuItem[] => {
@@ -26,6 +43,7 @@ const useCollection = () => {
   };
 
   return {
+    createCollection,
     getMenuActions,
   };
 };
