@@ -1,0 +1,6 @@
+.logo {
+  @apply flex h-16 items-center shrink-0;
+  &-title {
+    @apply tracking-widest uppercase;
+  }
+}

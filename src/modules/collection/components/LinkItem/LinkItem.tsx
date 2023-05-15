@@ -23,7 +23,7 @@ const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
       className={styles['link-item']}
       color="inherit"
       sx={{
-        backgroundColor: 'bg.card',
+        backgroundColor: 'background.paper',
         ':hover': {
           backgroundColor: 'action.hover',
         },

@@ -5,7 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 // Styles
 import styles from './Header.module.scss';
 
-const Header: FC<{}> = () => {
+const Header: FC = () => {
   const { resolvedTheme, theme, setTheme } = useTheme();
 
   // Component state
@@ -23,19 +23,18 @@ const Header: FC<{}> = () => {
       className={styles['header']}
       component="header"
       sx={{
-        borderColor: 'divider',
+        backgroundColor: 'background.default',
       }}
     >
-      <div className={styles['header-wrapper']}>
-        <Typography className={styles['header-wrapper-title']} variant="h6">
-          Metrostart
-        </Typography>
-        <Button
-          onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-        >
-          {theme === 'dark' ? 'Light Theme' : 'Dark Theme'}
-        </Button>
-      </div>
+      <Typography className={styles['header-title']} variant="h6">
+        Metrostart
+      </Typography>
+      <div className={styles['header-navigation']}></div>
+      <Button
+        onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
+      >
+        {theme === 'dark' ? 'Light Theme' : 'Dark Theme'}
+      </Button>
     </Box>
   );
 };

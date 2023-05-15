@@ -32,5 +32,6 @@
     "label": "Name",
     "placeholder": "Name der Sammlung"
   },
-  "title": "Sammlung"
+  "title": "Sammlung",
+  "your_library": "Deine Bibliothek"
 }

@@ -11,7 +11,6 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     bg: {
-      card: string;
       dialog: string;
       form: string;
     };
@@ -19,20 +18,17 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     bg: {
-      card: string;
       dialog: string;
       form: string;
     };
   }
 
   interface PaletteColor {
-    card?: string;
     dialog?: string;
     form?: string;
   }
 
   interface SimplePaletteColorOptions {
-    card?: string;
     dialog?: string;
     form?: string;
   }
@@ -57,11 +53,13 @@ const typography = {
 // Create a theme instance.
 export const darkTheme = createTheme({
   palette: {
+    background: {
+      paper: '#1f1f1f',
+    },
     action: {
       hover: 'rgba(255, 255, 255, 0.1)',
     },
     bg: {
-      card: 'rgba(255, 255, 255, 0.05)',
       dialog: '#232323',
       form: '#3c3c3c',
     },
@@ -75,11 +73,13 @@ export const darkTheme = createTheme({
 
 export const lightTheme = createTheme({
   palette: {
+    background: {
+      paper: '#eeeeee',
+    },
     action: {
       hover: 'rgba(0, 0, 0, 0.1)',
     },
     bg: {
-      card: 'rgba(0, 0, 0, 0.05)',
       dialog: '#ffffff',
       form: '#eaeaea',
     },

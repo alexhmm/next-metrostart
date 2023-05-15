@@ -29,7 +29,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-main {
-  @apply flex flex-col px-2 py-4 md:px-4 md:py-8 xl:px-0 xl:w-[1240px] w-full;
-}

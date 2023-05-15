@@ -1,11 +1,18 @@
 import { create } from 'zustand';
 
 // Types
-import { Collection } from '@/src/modules/collection/collection.types';
+import {
+  Collection,
+  CollectionWithoutLinks,
+} from '@/src/modules/collection/collection.types';
 
 export interface CollectionState {
   collection: Collection | undefined;
+  collectionCreate: boolean;
+  collections: CollectionWithoutLinks[];
   setCollection: (collection: Collection | undefined) => void;
+  setCollectionCreate: (collectionCreate: boolean) => void;
+  setCollections: (collections: CollectionWithoutLinks[]) => void;
 }
 
 // #todo: Doing this in zustand store directly:
@@ -17,8 +24,16 @@ export interface CollectionState {
 const useCollectionStore = create<CollectionState>((set, get) => ({
   // collection: collections && collections[0]?.items ? collections[0].items : [],
   collection: undefined,
+  collectionCreate: false,
+  collections: [],
   setCollection: (collection: Collection | undefined) => {
     set({ collection });
+  },
+  setCollectionCreate: (collectionCreate: boolean) => {
+    set({ collectionCreate });
+  },
+  setCollections: (collections: CollectionWithoutLinks[]) => {
+    set({ collections });
   },
 }));
 

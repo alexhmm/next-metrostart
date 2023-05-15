@@ -1,5 +1,5 @@
 // Types
-import { Collection } from './collection.types';
+import { Collection, CollectionWithoutLinks } from './collection.types';
 
 /**
  * Get a collection by id.
@@ -14,4 +14,21 @@ export const getCollectionById = (id?: string): Collection | undefined => {
     return collections.find((collection) => collection.id == id);
   }
   return undefined;
+};
+
+/**
+ * Maps collections without links.
+ * @param collections Collection array
+ * @returns Collections without links
+ */
+export const mapCollectionsWithoutLinks = (
+  collections: Collection[]
+): CollectionWithoutLinks[] => {
+  return collections.map((collection) => {
+    return {
+      id: collection.id,
+      description: collection.description,
+      name: collection.name,
+    };
+  });
 };

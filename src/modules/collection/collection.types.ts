@@ -21,3 +21,5 @@ export interface LinkItemPostPatchRequest {
   name: string;
   url: string;
 }
+
+export type CollectionWithoutLinks = Omit<Collection, 'links'>;
