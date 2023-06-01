@@ -1,4 +1,5 @@
 import { FC, memo } from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Box, Button, Typography } from '@mui/material';
 
@@ -10,7 +11,8 @@ import useCollectionStore from '@/src/modules/collection/collection.store';
 
 // Styles
 import styles from './Navigation.module.scss';
-import Link from 'next/link';
+
+// UI
 import IconButton from '@/src/ui/IconButton/IconButton';
 
 const Navigation: FC = () => {
@@ -44,7 +46,7 @@ const Navigation: FC = () => {
         />
       </Box>
       {collections.map((collection) => (
-        <Link key={collection.id} href={`/collection/${collection.id}`}>
+        <Link key={collection.id} href={`/collections/${collection.id}`}>
           <Button className={styles['navigation-item']} color="inherit">
             {collection.name}
           </Button>

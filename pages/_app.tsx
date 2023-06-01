@@ -6,6 +6,9 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
+// Components
+import Layout from '@/src/components/Layout/Layout';
+
 // Styles
 import '@/src/styles/globals.scss';
 
@@ -32,8 +35,7 @@ function App(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   // Collection store state
-  const [setCollection, setCollections] = useCollectionStore((state) => [
-    state.setCollection,
+  const [setCollections] = useCollectionStore((state) => [
     state.setCollections,
   ]);
 
@@ -53,7 +55,6 @@ function App(props: MyAppProps) {
       );
       if (initialCollections && initialCollections[0]) {
         setCollections(mapCollectionsWithoutLinks(initialCollections));
-        setCollection(initialCollections[0]);
       }
     }
   }, []);
@@ -63,7 +64,9 @@ function App(props: MyAppProps) {
 
   return (
     <PageProvider emotionCache={emotionCache}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </PageProvider>
   );
 }
