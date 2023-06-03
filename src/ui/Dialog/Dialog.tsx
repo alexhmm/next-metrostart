@@ -37,7 +37,7 @@ const Dialog = (props: DialogProps) => {
       <DialogTitle className={styles['dialog-title']}>
         <div className={styles['dialog-title-text']}>{props.title}</div>
         <IconButton
-          classes={styles['dialog-title-close']}
+          className={styles['dialog-title-close']}
           icon={['fas', 'times']}
           onClick={props.onClose}
         />

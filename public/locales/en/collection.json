@@ -25,7 +25,8 @@
         "label": "URL",
         "placeholder": "URL of link"
       }
-    }
+    },
+    "delete": "Remove link"
   },
   "name": {
     "error": "The name is required",

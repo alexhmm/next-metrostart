@@ -15,7 +15,7 @@ import Icon from '../Icon/Icon';
 type IconButtonProps = {
   borderRadius?: string;
   children?: ReactNode;
-  classes?: string;
+  className?: string;
   color?: ColorType;
   disabled?: boolean;
   icon: [IconPrefix, IconName];
@@ -32,8 +32,15 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     // If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase xxx instead.
     // If you accidentally passed it from a parent component, remove it from the DOM element.
     // https://reactjs.org/warnings/unknown-prop.html
-    const { borderRadius, classes, color, disabled, icon, iconSize, ...rest } =
-      props;
+    const {
+      borderRadius,
+      className: classes,
+      color,
+      disabled,
+      icon,
+      iconSize,
+      ...rest
+    } = props;
 
     return (
       <Button

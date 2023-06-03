@@ -19,12 +19,18 @@ import styles from './CollectionContent.module.scss';
 
 // Types
 import { CrudAction } from '@/src/types/shared.types';
+import {
+  Collection,
+  LinkItem as ILinkItem,
+} from '@/src/modules/collection/collection.types';
 
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
 import Menu from '@/src/ui/Menu/Menu';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
-import { Collection } from '../../collection.types';
+
+// Utils
+import { getCollections, updateCollections } from '../../collection.utils';
 
 type CollectionContentProps = {
   collection: Collection;
@@ -32,8 +38,7 @@ type CollectionContentProps = {
 
 const CollectionContent: FC<CollectionContentProps> = (props) => {
   const { collection } = props;
-
-  const { getMenuActions } = useCollection();
+  const { getCollectionMenuActions } = useCollection();
   const { t } = useTranslation();
 
   // Component state
@@ -43,25 +48,30 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
   const [collectionEdit, setCollectionEdit] = useState<string | undefined>(
     undefined
   );
-  const [linkCreateEdit, setLinkCreateEdit] = useState<boolean>(false);
+  const [linkCreate, setLinkCreate] = useState<boolean>(false);
+  const [linkEdit, setLinkEdit] = useState<ILinkItem | undefined>(undefined);
 
   // Collection store state
-  const [collectionCreate, setCollectionCreate] = useCollectionStore(
-    (state) => [state.collectionCreate, state.setCollectionCreate]
-  );
+  const [collectionCreate, setCollection, setCollectionCreate] =
+    useCollectionStore((state) => [
+      state.collectionCreate,
+      state.setCollection,
+      state.setCollectionCreate,
+    ]);
 
   // ######### //
   // CALLBACKS //
   // ######### //
 
   /**
-   * Handler on menu action
+   * Handler on collection menu action.
+   * @param action CrudAction
    */
-  const onMenuAction = useCallback(
+  const onCollectionMenuAction = useCallback(
     (action: CrudAction) => {
       switch (action) {
         case CrudAction.Create:
-          setLinkCreateEdit(true);
+          setLinkCreate(true);
           break;
         case CrudAction.Delete:
           collection?.id && setCollectionDelete(collection.id);
@@ -76,6 +86,27 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
     [collection]
   );
 
+  /**
+   * Handler to delete link item by id.
+   * @param id Link id
+   */
+  const onLinkDelete = useCallback((id: string) => {
+    const collections = getCollections();
+    const matchedCollection = collections.find(
+      (item) => item.id === collection?.id
+    );
+    if (matchedCollection) {
+      const matchedLinkIndex = matchedCollection.links?.findIndex(
+        (link) => link.id === id
+      );
+      if (matchedLinkIndex > -1) {
+        matchedCollection.links.splice(matchedLinkIndex, 1);
+        updateCollections(collections);
+        setCollection(matchedCollection);
+      }
+    }
+  }, []);
+
   return (
     <div className={styles['collection-content']}>
       <div className={styles['collection-content-header']}>
@@ -88,10 +119,10 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
             {collection?.name ?? t<any>('collection:title')}
           </Typography>
           <Menu
-            classes={styles['collection-content-header-title-menu']}
+            className={styles['collection-content-header-title-menu']}
             icon={['fas', 'ellipsis-v']}
-            items={getMenuActions()}
-            onAction={onMenuAction}
+            items={getCollectionMenuActions()}
+            onAction={onCollectionMenuAction}
           />
         </div>
         {collection?.description && (
@@ -105,20 +136,25 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       </div>
       {(!collection || (collection?.links && collection?.links.length < 1)) && (
         <TextButtonOutlined
-          classes="w-fit"
-          onClick={() => setLinkCreateEdit(true)}
+          className="w-fit"
+          onClick={() => setLinkCreate(true)}
         >
           {t<any>('collection:link.create_edit.title_create')}
         </TextButtonOutlined>
       )}
       <div className={styles['collection-content-main']}>
         {collection?.links?.map((link) => (
-          <LinkItem key={link.id} item={link} />
+          <LinkItem
+            key={link.id}
+            link={link}
+            onDelete={() => onLinkDelete(link.id)}
+            onEdit={() => setLinkEdit(link)}
+          />
         ))}
         {collection?.links && collection?.links?.length > 0 && (
           <LinkItem
             type={CrudAction.Create}
-            onClick={() => onMenuAction(CrudAction.Create)}
+            onClick={() => onCollectionMenuAction(CrudAction.Create)}
           />
         )}
       </div>
@@ -151,11 +187,21 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
         )}
       </Dialog>
       <Dialog
-        open={linkCreateEdit}
+        open={linkCreate}
         title={t<any>('collection:link.create_edit.title_create').toString()}
-        onClose={() => setLinkCreateEdit(false)}
+        onClose={() => setLinkCreate(false)}
       >
-        <LinkItemCreateEdit onClose={() => setLinkCreateEdit(false)} />
+        <LinkItemCreateEdit onClose={() => setLinkCreate(false)} />
+      </Dialog>
+      <Dialog
+        open={!!linkEdit}
+        title={t<any>('collection:link.create_edit.title_edit').toString()}
+        onClose={() => setLinkEdit(undefined)}
+      >
+        <LinkItemCreateEdit
+          link={linkEdit}
+          onClose={() => setLinkEdit(undefined)}
+        />
       </Dialog>
     </div>
   );

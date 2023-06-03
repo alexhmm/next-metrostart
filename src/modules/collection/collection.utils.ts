@@ -2,6 +2,24 @@
 import { Collection, CollectionWithoutLinks } from './collection.types';
 
 /**
+ * Get collections from LocalStorage.
+ * @returns Collection array
+ */
+export const getCollections = (): Collection[] => {
+  return JSON.parse(
+    localStorage.getItem('collections') ?? '[]'
+  ) as Collection[];
+};
+
+/**
+ * Update collections in LocalStorage.
+ * @param collections Collection array
+ */
+export const updateCollections = (collections: Collection[]) => {
+  localStorage.setItem('collections', JSON.stringify(collections));
+};
+
+/**
  * Get a collection by id.
  * @param id Collection id
  * @returns Collection

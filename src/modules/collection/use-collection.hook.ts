@@ -25,15 +25,15 @@ const useCollection = () => {
    * Get collection menu items.
    * @returns
    */
-  const getMenuActions = (): MenuItem[] => {
+  const getCollectionMenuActions = (): MenuItem[] => {
     return [
-      {
-        action: CrudAction.Create,
-        title: t<any>('collection:link.create_edit.title_create'),
-      },
       {
         action: CrudAction.Update,
         title: t<any>('collection:create_edit.title_edit'),
+      },
+      {
+        action: CrudAction.Create,
+        title: t<any>('collection:link.create_edit.title_create'),
       },
       {
         action: CrudAction.Delete,
@@ -42,9 +42,27 @@ const useCollection = () => {
     ];
   };
 
+  /**
+   * Get link menu items.
+   * @returns
+   */
+  const getLinkMenuActions = (): MenuItem[] => {
+    return [
+      {
+        action: CrudAction.Update,
+        title: t<any>('collection:link.create_edit.title_edit'),
+      },
+      {
+        action: CrudAction.Delete,
+        title: t<any>('collection:link.delete'),
+      },
+    ];
+  };
+
   return {
     createCollection,
-    getMenuActions,
+    getCollectionMenuActions,
+    getLinkMenuActions,
   };
 };
 

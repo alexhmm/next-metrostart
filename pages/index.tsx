@@ -60,7 +60,7 @@ export default function Home(
       <main className={styles['home']}>
         {collection && <CollectionContent collection={collection} />}
         <Link href="/" locale={changeTo}>
-          <TextButtonOutlined classes="mt-4">
+          <TextButtonOutlined className="mt-4">
             {t<any>('common:settings.language.title', { changeTo })}
           </TextButtonOutlined>
         </Link>

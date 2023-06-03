@@ -42,11 +42,12 @@ const MenuItem = (props: MenuItemProps) => {
 
 type MenuProps = {
   anchorOrigin?: PopoverOrigin;
-  classes?: string;
+  className?: string;
   color?: ColorType;
   hideItemIcon?: boolean;
   icon?: [IconPrefix, IconName];
   iconSize?: FontSize;
+  id?: string;
   items: IMenuItem[];
   padding?: string | undefined;
   sx?: SxProps<Theme>;
@@ -61,6 +62,15 @@ const Menu = (props: MenuProps) => {
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null);
 
   /**
+   * Handler on menu click.
+   */
+  const onMenuClick = useCallback((event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setAnchorMenu(event.currentTarget);
+  }, []);
+
+  /**
    * Handler to close menu.
    */
   const onMenuClose = useCallback(() => {
@@ -72,13 +82,14 @@ const Menu = (props: MenuProps) => {
       {props.icon ? (
         <Tooltip placement="top" title={props.tooltip}>
           <IconButton
-            classes={props.classes && props.classes}
+            className={props.className && props.className}
             color={props.color}
             icon={props.icon}
             iconSize={props.iconSize}
+            id={props.id}
             padding={props.padding}
             sx={{ ...props.sx }}
-            onClick={(event) => setAnchorMenu(event.currentTarget)}
+            onClick={onMenuClick}
           />
         </Tooltip>
       ) : (
@@ -88,7 +99,7 @@ const Menu = (props: MenuProps) => {
           aria-haspopup="true"
           aria-expanded={Boolean(anchorMenu) ? 'true' : undefined}
           className={styles['menu']}
-          onClick={(event) => setAnchorMenu(event.currentTarget)}
+          onClick={onMenuClick}
         >
           {props.title}
         </Button>

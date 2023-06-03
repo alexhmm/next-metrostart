@@ -26,13 +26,15 @@ import { ResultState } from '@/src/types/shared.types';
 import Input from '@/src/ui/Input/Input';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
+// Utils
+import { getCollections, updateCollections } from '../../collection.utils';
+
 type LinkItemCreateEditProps = {
-  item?: LinkItem;
+  link?: LinkItem;
   onClose: () => void;
 };
 
 const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
-  const { createCollection } = useCollection();
   const { t } = useTranslation();
 
   // Collection store state
@@ -69,43 +71,42 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
    */
   const onCreateEditLinkItem = useCallback(
     (body: LinkItemPostPatchRequest) => {
-      if (!props.item) {
-        // Create link item
-        const link: LinkItem = {
-          id: uuidv4(),
-          icon: `https://www.google.com/s2/favicons?domain=${body.url}&sz=96`,
-          name: body.name,
-          url: body.url,
-        };
+      if (typeof window !== 'undefined') {
+        const collections = getCollections();
+        const matchedCollection = collections.find(
+          (item) => item.id === collection?.id
+        );
 
-        const id = uuidv4();
+        if (matchedCollection) {
+          if (!props.link) {
+            // Create link item
+            const id = uuidv4();
 
-        // Check if collection exists and add created link
-        let updatedCollection: Collection | undefined;
-        if (collection) {
-          updatedCollection = {
-            ...collection,
-            links: [...collection.links, link],
-          };
-        } else {
-          updatedCollection = createCollection();
-          updatedCollection.links = [link];
-        }
-        setCollection(updatedCollection);
+            const link: LinkItem = {
+              id,
+              icon: `https://www.google.com/s2/favicons?domain=${body.url}&sz=96`,
+              name: body.name,
+              url: body.url,
+            };
 
-        // Update LocalStorage
-        if (typeof window !== 'undefined') {
-          let collections = JSON.parse(
-            localStorage.getItem('collections') ?? '[]'
-          ) as Collection[];
-          if (collections && collections.length > 0) {
-            collections[0].links.push(link);
+            matchedCollection.links = [...matchedCollection.links, link];
+            setCollection(matchedCollection);
           } else {
-            collections = [updatedCollection];
+            // Check for link to edit
+            const matchedLink = matchedCollection.links?.find(
+              (link) => link.id === props.link?.id
+            );
+            if (matchedLink) {
+              // Edit data
+              matchedLink.icon = `https://www.google.com/s2/favicons?domain=${body.url}&sz=96`;
+              matchedLink.name = body.name;
+              matchedLink.url = body.url;
+              setCollection(matchedCollection as Collection);
+            }
           }
-          localStorage.setItem('collections', JSON.stringify(collections));
+          updateCollections(collections);
+          props.onClose();
         }
-        props.onClose();
       }
     },
     [props]
@@ -119,6 +120,7 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
       <Input
         autoFocus
         classes={styles['link-item-create-edit-item']}
+        defaultValue={props.link?.name}
         label={t<any>('collection:link.create_edit.name.label')}
         message={errors?.name && errors.name.message?.toString()}
         placeholder={t<any>('collection:link.create_edit.name.placeholder')}
@@ -127,6 +129,7 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
       />
       <Input
         classes={styles['link-item-create-edit-item']}
+        defaultValue={props.link?.url}
         label={t<any>('collection:link.create_edit.url.label')}
         message={errors?.url && errors.url.message?.toString()}
         placeholder={t<any>('collection:link.create_edit.url.placeholder')}

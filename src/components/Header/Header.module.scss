@@ -1,5 +1,5 @@
 .header {
-  @apply flex h-16 items-center justify-between max-h-screen shrink-0 sticky top-0 w-full z-10;
+  @apply flex h-16 items-center justify-between max-h-screen shrink-0 sticky top-0 w-full z-20;
   &-title {
     @apply tracking-widest uppercase lg:hidden;
   }

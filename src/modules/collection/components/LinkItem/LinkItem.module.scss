@@ -1,7 +1,10 @@
 .link-item {
-  @apply aspect-square duration-200 flex flex-col items-center justify-center normal-case p-10 relative rounded-md transition-colors w-full;
+  @apply aspect-square cursor-pointer duration-200 flex flex-col items-center justify-center normal-case p-10 relative rounded-md transition-colors w-full;
+  &-menu {
+    @apply absolute right-1 top-1 z-10;
+  }
   &-title {
-    @apply absolute bottom-1 left-0 px-2 shrink-0 truncate w-full;
+    @apply absolute bottom-1 left-0 px-2 shrink-0 text-center truncate w-full;
   }
   & img {
     @apply aspect-square rounded-md max-w-full;
