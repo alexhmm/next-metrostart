@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useState } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -15,24 +15,30 @@ import useCollectionStore from '../../collection.store';
 import styles from './CollectionDelete.module.scss';
 
 // Types
-import { Collection, CollectionPostPatchRequest } from '../../collection.types';
+import { CollectionPostPatchRequest } from '../../collection.types';
 import { ResultState } from '@/src/types/shared.types';
 
 // UI
 import Input from '@/src/ui/Input/Input';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
+// Utils
+import { getCollections, updateCollections } from '../../collection.utils';
+
 type CollectionDeleteProps = {
   id: string;
   onClose: () => void;
 };
 
-const LinkItemCreateEdit: FC<CollectionDeleteProps> = (props) => {
+const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
   const { createCollection } = useCollection();
   const { t } = useTranslation();
 
   // Collection store state
-  const [setCollection] = useCollectionStore((state) => [state.setCollection]);
+  const [setCollection, setCollections] = useCollectionStore((state) => [
+    state.setCollection,
+    state.setCollections,
+  ]);
 
   // React hook form validation schema
   // #todo: Name validation
@@ -59,27 +65,29 @@ const LinkItemCreateEdit: FC<CollectionDeleteProps> = (props) => {
    */
   const onDelete = useCallback(() => {
     if (typeof window !== 'undefined') {
-      let collections = JSON.parse(
-        localStorage.getItem('collections') ?? '[]'
-      ) as Collection[];
+      let collectionsStorage = getCollections();
       // collections.filter((collection) => collection.id !== props.id);
-      const indexToDelete = collections.findIndex(
+      const indexToDelete = collectionsStorage.findIndex(
         (collection) => collection.id === props.id
       );
       if (indexToDelete > -1) {
-        collections.splice(indexToDelete, 1);
+        collectionsStorage.splice(indexToDelete, 1);
 
         // Set first collection for view or create new one if none exists
-        if (collections.length > 0) {
-          setCollection(collections[0]);
+        if (collectionsStorage.length > 0) {
+          setCollection(collectionsStorage[0]);
         } else {
           const newCollection = createCollection();
           setCollection(newCollection);
-          collections.push(newCollection);
+          collectionsStorage.push(newCollection);
         }
 
-        localStorage.setItem('collections', JSON.stringify(collections));
-        setCollection(collections.length > 0 ? collections[0] : undefined);
+        // Update LocalStorage
+        updateCollections(collectionsStorage);
+
+        // Update store
+        setCollections(collectionsStorage);
+
         props.onClose();
       }
     }
@@ -114,4 +122,4 @@ const LinkItemCreateEdit: FC<CollectionDeleteProps> = (props) => {
   );
 };
 
-export default memo(LinkItemCreateEdit);
+export default memo(CollectionDelete);

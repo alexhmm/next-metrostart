@@ -4,7 +4,7 @@
     @apply absolute right-1 top-1 z-10;
   }
   &-title {
-    @apply absolute bottom-1 left-0 px-2 shrink-0 text-center truncate w-full;
+    @apply absolute bottom-1 left-0 px-2 shrink-0 text-center text-sm truncate w-full;
   }
   & img {
     @apply aspect-square rounded-md max-w-full;

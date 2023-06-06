@@ -34,18 +34,21 @@ const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
    * Handler to link menu action.
    * @param action CrudAction
    */
-  const onMenuAction = useCallback((action: CrudAction) => {
-    switch (action) {
-      case CrudAction.Update:
-        props.onEdit && props.onEdit();
-        break;
-      case CrudAction.Delete:
-        props.onDelete && props.onDelete();
-        break;
-      default:
-        break;
-    }
-  }, []);
+  const onMenuAction = useCallback(
+    (action: CrudAction) => {
+      switch (action) {
+        case CrudAction.Update:
+          props.onEdit && props.onEdit();
+          break;
+        case CrudAction.Delete:
+          props.onDelete && props.onDelete();
+          break;
+        default:
+          break;
+      }
+    },
+    [props]
+  );
 
   return (
     <Box

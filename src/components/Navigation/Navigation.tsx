@@ -52,55 +52,6 @@ const Navigation: FC = () => {
           </Button>
         </Link>
       ))}
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      <div>Navigation</div>
-      {/* </Box> */}
     </Box>
   );
 };

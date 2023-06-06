@@ -91,18 +91,20 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
    * @param id Link id
    */
   const onLinkDelete = useCallback((id: string) => {
-    const collections = getCollections();
-    const matchedCollection = collections.find(
-      (item) => item.id === collection?.id
-    );
-    if (matchedCollection) {
-      const matchedLinkIndex = matchedCollection.links?.findIndex(
-        (link) => link.id === id
+    if (typeof window !== 'undefined') {
+      const collections = getCollections();
+      const matchedCollection = collections.find(
+        (item) => item.id === collection?.id
       );
-      if (matchedLinkIndex > -1) {
-        matchedCollection.links.splice(matchedLinkIndex, 1);
-        updateCollections(collections);
-        setCollection(matchedCollection);
+      if (matchedCollection) {
+        const matchedLinkIndex = matchedCollection.links?.findIndex(
+          (link) => link.id === id
+        );
+        if (matchedLinkIndex > -1) {
+          matchedCollection.links.splice(matchedLinkIndex, 1);
+          updateCollections(collections);
+          setCollection(matchedCollection);
+        }
       }
     }
   }, []);
@@ -134,14 +136,6 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
           </Typography>
         )}
       </div>
-      {(!collection || (collection?.links && collection?.links.length < 1)) && (
-        <TextButtonOutlined
-          className="w-fit"
-          onClick={() => setLinkCreate(true)}
-        >
-          {t<any>('collection:link.create_edit.title_create')}
-        </TextButtonOutlined>
-      )}
       <div className={styles['collection-content-main']}>
         {collection?.links?.map((link) => (
           <LinkItem
@@ -151,12 +145,10 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
             onEdit={() => setLinkEdit(link)}
           />
         ))}
-        {collection?.links && collection?.links?.length > 0 && (
-          <LinkItem
-            type={CrudAction.Create}
-            onClick={() => onCollectionMenuAction(CrudAction.Create)}
-          />
-        )}
+        <LinkItem
+          type={CrudAction.Create}
+          onClick={() => onCollectionMenuAction(CrudAction.Create)}
+        />
       </div>
       <Dialog
         open={collectionCreate || !!collectionEdit}

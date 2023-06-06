@@ -20,7 +20,11 @@ import Input from '@/src/ui/Input/Input';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
 // Utils
-import { getCollectionById } from '../../collection.utils';
+import {
+  getCollections,
+  updateCollections,
+  getCollectionById,
+} from '../../collection.utils';
 
 type CollectionCreateEditProps = {
   id?: string;
@@ -31,7 +35,10 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
   const { t } = useTranslation();
 
   // Collection store state
-  const [setCollection] = useCollectionStore((state) => [state.setCollection]);
+  const [setCollection, setCollections] = useCollectionStore((state) => [
+    state.setCollection,
+    state.setCollections,
+  ]);
 
   // Component state
   const [collection] = useState<Collection | undefined>(
@@ -65,34 +72,37 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
   const onCreateEdit = useCallback(
     (body: CollectionPostPatchRequest) => {
       if (typeof window !== 'undefined') {
-        let collections = JSON.parse(
-          localStorage.getItem('collections') ?? '[]'
-        ) as Collection[];
+        const collectionsStorage = getCollections();
+        let updatedCollection: Collection | undefined = undefined;
         if (!props.id) {
           const id = uuidv4();
 
           // Create collection
-          const collectionNew: Collection = {
+          updatedCollection = {
             id,
             description: body.description,
             links: [],
             name: body.name,
           };
-
-          // Update LocalStorage
-          collections.push(collectionNew);
-          setCollection(collectionNew);
+          collectionsStorage.push(updatedCollection);
         } else {
-          const updatedCollection = collections.find(
+          updatedCollection = collectionsStorage.find(
             (collection) => collection.id === props.id
           );
           if (updatedCollection) {
             updatedCollection.description = body.description;
             updatedCollection.name = body.name;
-            setCollection(updatedCollection);
           }
         }
-        localStorage.setItem('collections', JSON.stringify(collections));
+
+        if (updatedCollection) {
+          // Update LocalStorage
+          updateCollections(collectionsStorage);
+
+          // Update store
+          setCollection(updatedCollection);
+          setCollections(collectionsStorage);
+        }
         props.onClose();
       }
     },

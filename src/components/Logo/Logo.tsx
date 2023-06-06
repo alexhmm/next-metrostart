@@ -13,16 +13,16 @@ type LogoProps = {
 
 const Logo: FC<LogoProps> = (props) => {
   return (
-    <Link href="/">
-      <Box
-        className={clsx(styles['logo'], props.className && props.className)}
-        sx={{ backgroundColor: props.backgroundColor }}
-      >
+    <Box
+      className={clsx(styles['logo'], props.className && props.className)}
+      sx={{ backgroundColor: props.backgroundColor }}
+    >
+      <Link href="/">
         <Typography className={styles['logo-title']} variant="h6">
           Metrostart
         </Typography>
-      </Box>
-    </Link>
+      </Link>
+    </Box>
   );
 };
 
