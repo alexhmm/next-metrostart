@@ -1,0 +1,19 @@
+.links-sort {
+  @apply flex flex-col;
+  &-list {
+    @apply flex flex-col gap-4;
+  }
+  &-submit {
+    @apply flex justify-end mt-4;
+  }
+}
+
+.link-sortable-item {
+  @apply flex items-center;
+  &-image {
+    @apply aspect-square shrink-0 w-8;
+  }
+  &-name {
+    @apply grow ml-4 truncate;
+  }
+}

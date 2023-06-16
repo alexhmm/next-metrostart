@@ -1,8 +1,15 @@
+export enum CollectionMenuAction {
+  Create = 'CREATE',
+  Delete = 'DELETE',
+  Sort = 'SORT',
+  Update = 'UPDATE',
+}
+
 export interface Collection {
   id: string;
   description?: string;
   name: string;
-  links: LinkItem[];
+  links: Link[];
 }
 
 export interface CollectionPostPatchRequest {
@@ -10,7 +17,7 @@ export interface CollectionPostPatchRequest {
   name: string;
 }
 
-export interface LinkItem {
+export interface Link {
   id: string;
   icon: string | undefined;
   name: string;

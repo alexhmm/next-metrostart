@@ -26,7 +26,11 @@
         "placeholder": "URL of link"
       }
     },
-    "delete": "Remove link"
+    "delete": "Remove link",
+    "sort": {
+      "submit": "Submit changes",
+      "title": "Sort links"
+    }
   },
   "name": {
     "error": "The name is required",

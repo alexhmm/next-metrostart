@@ -26,7 +26,11 @@
         "placeholder": "URL der Verknüpfung"
       }
     },
-    "delete": "Verknüpfung löschen"
+    "delete": "Verknüpfung löschen",
+    "sort": {
+      "submit": "Änderungen übernehmen",
+      "title": "Verknüpfungen sortieren"
+    }
   },
   "name": {
     "error": "Der Name wird benötigt",

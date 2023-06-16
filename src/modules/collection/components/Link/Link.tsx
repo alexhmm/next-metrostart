@@ -5,25 +5,25 @@ import { Box } from '@mui/material';
 import useCollection from '../../use-collection.hook';
 
 // Styles
-import styles from './LinkItem.module.scss';
+import styles from './Link.module.scss';
 
 // Types
-import { LinkItem as ILinkItem } from '@/src/modules/collection/collection.types';
+import { Link as ILink } from '@/src/modules/collection/collection.types';
 import { CrudAction } from '@/src/types/shared.types';
 
 // UI
 import Icon from '@/src/ui/Icon/Icon';
 import Menu from '@/src/ui/Menu/Menu';
 
-type LinkItemButtonProps = {
-  link?: ILinkItem;
+type LinkButtonProps = {
+  link?: ILink;
   type?: CrudAction;
   onClick?: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
 };
 
-const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
+const LinkButton: FC<LinkButtonProps> = (props) => {
   const { getLinkMenuActions } = useCollection();
 
   // ######### //
@@ -52,7 +52,7 @@ const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
 
   return (
     <Box
-      className={styles['link-item']}
+      className={styles['link']}
       color="inherit"
       sx={{
         backgroundColor: 'background.paper',
@@ -70,7 +70,7 @@ const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
       onClick={props.onClick && props.onClick}
     >
       <Menu
-        className={styles['link-item-menu']}
+        className={styles['link-menu']}
         icon={['fas', 'ellipsis-v']}
         id="menu"
         items={getLinkMenuActions()}
@@ -79,7 +79,7 @@ const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
       {props.link && (
         <>
           <img src={props.link.icon} />
-          <div className={styles['link-item-title']}>{props.link.name}</div>
+          <div className={styles['link-title']}>{props.link.name}</div>
         </>
       )}
       {props.type === CrudAction.Create && (
@@ -89,30 +89,36 @@ const LinkItemButton: FC<LinkItemButtonProps> = (props) => {
   );
 };
 
-type LinkItemProps = {
-  link?: ILinkItem;
+type LinkProps = {
+  link?: ILink;
   type?: CrudAction.Create;
   onClick?: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
 };
 
-const LinkItem: FC<LinkItemProps> = (props) => {
+const Link: FC<LinkProps> = (props) => {
+  const https =
+    props.link?.url.includes('http://') || props.link?.url.includes('https://');
+
   return (
     <>
       {props.link ? (
-        <a href={`//${props.link.url}`} rel="noreferrer">
-          <LinkItemButton
+        <a
+          href={https ? props.link?.url : `//${props.link.url}`}
+          rel="noreferrer"
+        >
+          <LinkButton
             link={props.link}
             onDelete={props.onDelete}
             onEdit={props.onEdit}
           />
         </a>
       ) : (
-        <LinkItemButton type={props.type} onClick={props.onClick} />
+        <LinkButton type={props.type} onClick={props.onClick} />
       )}
     </>
   );
 };
 
-export default memo(LinkItem);
+export default memo(Link);

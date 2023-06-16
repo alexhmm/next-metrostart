@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 
 // Types
+import { CollectionMenuAction } from './collection.types';
 import { CrudAction, MenuItem } from '@/src/types/shared.types';
 
 const useCollection = () => {
@@ -28,15 +29,19 @@ const useCollection = () => {
   const getCollectionMenuActions = (): MenuItem[] => {
     return [
       {
-        action: CrudAction.Update,
-        title: t<any>('collection:create_edit.title_edit'),
-      },
-      {
-        action: CrudAction.Create,
+        action: CollectionMenuAction.Create,
         title: t<any>('collection:link.create_edit.title_create'),
       },
       {
-        action: CrudAction.Delete,
+        action: CollectionMenuAction.Sort,
+        title: t<any>('collection:link.sort.title'),
+      },
+      {
+        action: CollectionMenuAction.Update,
+        title: t<any>('collection:create_edit.title_edit'),
+      },
+      {
+        action: CollectionMenuAction.Delete,
         title: t<any>('collection:delete.title'),
       },
     ];

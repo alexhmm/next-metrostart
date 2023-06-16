@@ -5,8 +5,9 @@ import { Typography } from '@mui/material';
 // Components
 import CollectionCreateEdit from '@/src/modules/collection/components/CollectionCreateEdit/CollectionCreateEdit';
 import CollectionDelete from '@/src/modules/collection/components/CollectionDelete/CollectionDelete';
-import LinkItem from '@/src/modules/collection/components/LinkItem/LinkItem';
+import Link from '@/src/modules/collection/components/Link/Link';
 import LinkItemCreateEdit from '@/src/modules/collection/components/LinkItemCreateEdit/LinkItemCreateEdit';
+import LinksSort from '../LinksSort/LinksSort';
 
 // Hooks
 import useCollection from '@/src/modules/collection/use-collection.hook';
@@ -21,13 +22,13 @@ import styles from './CollectionContent.module.scss';
 import { CrudAction } from '@/src/types/shared.types';
 import {
   Collection,
-  LinkItem as ILinkItem,
+  CollectionMenuAction,
+  Link as ILinkItem,
 } from '@/src/modules/collection/collection.types';
 
 // UI
 import Dialog from '@/src/ui/Dialog/Dialog';
 import Menu from '@/src/ui/Menu/Menu';
-import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
 // Utils
 import { getCollections, updateCollections } from '../../collection.utils';
@@ -48,6 +49,9 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
   const [collectionEdit, setCollectionEdit] = useState<string | undefined>(
     undefined
   );
+  const [collectionSort, setCollectionSort] = useState<string | undefined>(
+    undefined
+  );
   const [linkCreate, setLinkCreate] = useState<boolean>(false);
   const [linkEdit, setLinkEdit] = useState<ILinkItem | undefined>(undefined);
 
@@ -65,18 +69,21 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
 
   /**
    * Handler on collection menu action.
-   * @param action CrudAction
+   * @param action CollectionMenuAction
    */
   const onCollectionMenuAction = useCallback(
-    (action: CrudAction) => {
+    (action: CollectionMenuAction) => {
       switch (action) {
-        case CrudAction.Create:
+        case CollectionMenuAction.Create:
           setLinkCreate(true);
           break;
-        case CrudAction.Delete:
+        case CollectionMenuAction.Delete:
           collection?.id && setCollectionDelete(collection.id);
           break;
-        case CrudAction.Update:
+        case CollectionMenuAction.Sort:
+          collection?.id && setCollectionSort(collection.id);
+          break;
+        case CollectionMenuAction.Update:
           collection?.id && setCollectionEdit(collection.id);
           break;
         default:
@@ -138,21 +145,25 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       </div>
       <div className={styles['collection-content-main']}>
         {collection?.links?.map((link) => (
-          <LinkItem
+          <Link
             key={link.id}
             link={link}
             onDelete={() => onLinkDelete(link.id)}
             onEdit={() => setLinkEdit(link)}
           />
         ))}
-        <LinkItem
+        <Link
           type={CrudAction.Create}
-          onClick={() => onCollectionMenuAction(CrudAction.Create)}
+          onClick={() => onCollectionMenuAction(CollectionMenuAction.Create)}
         />
       </div>
       <Dialog
         open={collectionCreate || !!collectionEdit}
-        title={t<any>('collection:create_edit.title_create').toString()}
+        title={t<any>(
+          collectionCreate
+            ? 'collection:create_edit.title_create'
+            : 'collection:create_edit.title_edit'
+        ).toString()}
         onClose={() => {
           setCollectionCreate(false);
           setCollectionEdit(undefined);
@@ -175,6 +186,18 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
           <CollectionDelete
             id={collection.id}
             onClose={() => setCollectionDelete(undefined)}
+          />
+        )}
+      </Dialog>
+      <Dialog
+        open={!!collectionSort}
+        title={t<any>('collection:link.sort.title').toString()}
+        onClose={() => setCollectionSort(undefined)}
+      >
+        {collection && collection.id && (
+          <LinksSort
+            id={collection.id}
+            onClose={() => setCollectionSort(undefined)}
           />
         )}
       </Dialog>

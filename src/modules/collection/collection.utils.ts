@@ -50,3 +50,26 @@ export const mapCollectionsWithoutLinks = (
     };
   });
 };
+
+/**
+ * Update a collection with new data.
+ * @param updatedCollection Collection
+ */
+export const updateCollection = (
+  updatedCollection: Collection
+): Collection[] => {
+  const collections = getCollections();
+  if (collections && collections.length > 0) {
+    const matchedCollection = collections.find(
+      (collection) => collection.id == updatedCollection.id
+    );
+    if (matchedCollection) {
+      matchedCollection.description = updatedCollection.description;
+      matchedCollection.links = updatedCollection.links;
+      matchedCollection.name = updatedCollection.name;
+      updateCollections(collections);
+      return collections;
+    }
+  }
+  return [];
+};

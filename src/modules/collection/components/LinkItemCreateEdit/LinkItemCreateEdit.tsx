@@ -17,7 +17,7 @@ import styles from './LinkItemCreateEdit.module.scss';
 // Types
 import {
   Collection,
-  LinkItem,
+  Link,
   LinkItemPostPatchRequest,
 } from '../../collection.types';
 import { ResultState } from '@/src/types/shared.types';
@@ -30,7 +30,7 @@ import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 import { getCollections, updateCollections } from '../../collection.utils';
 
 type LinkItemCreateEditProps = {
-  link?: LinkItem;
+  link?: Link;
   onClose: () => void;
 };
 
@@ -82,7 +82,7 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
             // Create link item
             const id = uuidv4();
 
-            const link: LinkItem = {
+            const link: Link = {
               id,
               icon: `https://www.google.com/s2/favicons?domain=${body.url}&sz=96`,
               name: body.name,
