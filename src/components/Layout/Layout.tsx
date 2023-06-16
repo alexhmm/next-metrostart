@@ -1,8 +1,8 @@
 import { FC, ReactNode, memo } from 'react';
+import { Box } from '@mui/material';
 
-// Component
-import Content from '../Content/Content';
-import Navigation from '../Navigation/Navigation';
+// Components
+import Header from '../Header/Header';
 
 // Styles
 import styles from './Layout.module.scss';
@@ -13,10 +13,10 @@ type LayoutProps = {
 
 const Layout: FC<LayoutProps> = (props) => {
   return (
-    <main className={styles['layout']}>
-      <Navigation />
-      <Content>{props.children}</Content>
-    </main>
+    <Box className={styles['layout']}>
+      <Header />
+      <div>{props.children}</div>
+    </Box>
   );
 };
 

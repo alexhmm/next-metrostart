@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 
 // Types
 import { ColorType, FontSize } from '../../types/mui.types';
+import { getDisplayName } from 'next/dist/shared/lib/utils';
 
 type IconProps = {
   classes?: string;
@@ -80,5 +81,7 @@ const Icon = forwardRef(
 Icon.propTypes = {
   icon: PropTypes.any.isRequired,
 };
+
+Icon.displayName = 'Icon';
 
 export default memo(Icon);

@@ -91,6 +91,7 @@ const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
         props.onClose();
       }
     }
+    // eslint-disable-next-line
   }, [props]);
 
   return (

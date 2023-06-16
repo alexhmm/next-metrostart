@@ -1,5 +1,6 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 import {
   DragDropContext,
   Droppable,
@@ -35,10 +36,13 @@ const LinkSortableItem: FC<LinkSortableItemProps> = (props) => {
       {...props.provided.draggableProps}
       {...props.provided.dragHandleProps}
     >
-      <img
-        className={styles['link-sortable-item-image']}
-        src={props.link.icon}
-      />
+      {props.link.icon && (
+        <Image
+          alt={props.link.name}
+          className={styles['link-sortable-item-image']}
+          src={props.link.icon}
+        />
+      )}
       <span className={styles['link-sortable-item-name']}>
         {props.link.name}
       </span>
@@ -85,6 +89,7 @@ const LinksSort: FC<LinksSortProps> = (props) => {
 
       setLinks(updatedLinks);
     },
+    // eslint-disable-next-line
     [links]
   );
 
@@ -97,6 +102,7 @@ const LinksSort: FC<LinksSortProps> = (props) => {
       setCollections(updateCollection({ ...collection, links }));
       props.onClose();
     }
+    // eslint-disable-next-line
   }, [links]);
 
   return (

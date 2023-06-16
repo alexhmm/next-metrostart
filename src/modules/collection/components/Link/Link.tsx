@@ -1,5 +1,6 @@
 import { FC, memo, useCallback } from 'react';
-import { Box } from '@mui/material';
+import Image from 'next/image';
+import { Box, Typography } from '@mui/material';
 
 // Hooks
 import useCollection from '../../use-collection.hook';
@@ -13,7 +14,7 @@ import { CrudAction } from '@/src/types/shared.types';
 
 // UI
 import Icon from '@/src/ui/Icon/Icon';
-import Menu from '@/src/ui/Menu/Menu';
+import IconMenu from '@/src/ui/Menu/IconMenu';
 
 type LinkButtonProps = {
   link?: ILink;
@@ -69,17 +70,19 @@ const LinkButton: FC<LinkButtonProps> = (props) => {
       }}
       onClick={props.onClick && props.onClick}
     >
-      <Menu
+      <IconMenu
         className={styles['link-menu']}
         icon={['fas', 'ellipsis-v']}
         id="menu"
         items={getLinkMenuActions()}
         onAction={onMenuAction}
       />
-      {props.link && (
+      {props.link && props.link.icon && (
         <>
-          <img src={props.link.icon} />
-          <div className={styles['link-title']}>{props.link.name}</div>
+          <Image alt={props.link.name} src={props.link.icon} />
+          <Typography className={styles['link-title']}>
+            {props.link.name}
+          </Typography>
         </>
       )}
       {props.type === CrudAction.Create && (

@@ -106,6 +106,7 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
         props.onClose();
       }
     },
+    // eslint-disable-next-line
     [props]
   );
 

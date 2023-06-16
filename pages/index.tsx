@@ -50,6 +50,7 @@ export default function Home(
     return () => {
       setCollection(undefined);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -64,6 +65,9 @@ export default function Home(
             {t<any>('common:settings.language.title', { changeTo })}
           </TextButtonOutlined>
         </Link>
+        {collection && (
+          <Link href={`/collections/${collection.id}`}>{collection.name}</Link>
+        )}
       </main>
     </>
   );

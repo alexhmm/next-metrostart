@@ -1,6 +1,6 @@
-import { FC, memo, useCallback, useEffect, useState } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 // Components
 import CollectionCreateEdit from '@/src/modules/collection/components/CollectionCreateEdit/CollectionCreateEdit';
@@ -23,7 +23,7 @@ import { CrudAction } from '@/src/types/shared.types';
 import {
   Collection,
   CollectionMenuAction,
-  Link as ILinkItem,
+  Link as ILink,
 } from '@/src/modules/collection/collection.types';
 
 // UI
@@ -53,7 +53,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
     undefined
   );
   const [linkCreate, setLinkCreate] = useState<boolean>(false);
-  const [linkEdit, setLinkEdit] = useState<ILinkItem | undefined>(undefined);
+  const [linkEdit, setLinkEdit] = useState<ILink | undefined>(undefined);
 
   // Collection store state
   const [collectionCreate, setCollection, setCollectionCreate] =
@@ -114,24 +114,24 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
         }
       }
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <div className={styles['collection-content']}>
-      <div className={styles['collection-content-header']}>
+    <Box
+      className={styles['collection-content']}
+      sx={{ backgroundColor: 'background.paper' }}
+    >
+      <Box
+        className={styles['collection-content-header']}
+        sx={{ borderColor: 'background.default' }}
+      >
         <div className={styles['collection-content-header-title']}>
-          <Typography
-            className={styles['collection-content-header-title-text']}
-            variant="h5"
-          >
-            {/* #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'. */}
-            {collection?.name ?? t<any>('collection:title')}
-          </Typography>
           <Menu
-            className={styles['collection-content-header-title-menu']}
-            icon={['fas', 'ellipsis-v']}
             items={getCollectionMenuActions()}
             onAction={onCollectionMenuAction}
+            title={collection?.name ?? t<any>('collection:title')}
+            variant="h5"
           />
         </div>
         {collection?.description && (
@@ -142,8 +142,11 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
             {collection.description}
           </Typography>
         )}
-      </div>
-      <div className={styles['collection-content-main']}>
+      </Box>
+      <Box
+        className={styles['collection-content-main']}
+        sx={{ backgroundColor: 'background.default' }}
+      >
         {collection?.links?.map((link) => (
           <Link
             key={link.id}
@@ -156,9 +159,10 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
           type={CrudAction.Create}
           onClick={() => onCollectionMenuAction(CollectionMenuAction.Create)}
         />
-      </div>
+      </Box>
       <Dialog
         open={collectionCreate || !!collectionEdit}
+        // #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'.
         title={t<any>(
           collectionCreate
             ? 'collection:create_edit.title_create'
@@ -218,7 +222,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
           onClose={() => setLinkEdit(undefined)}
         />
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

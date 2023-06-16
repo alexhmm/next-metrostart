@@ -47,6 +47,7 @@ const Input = (props: InputProps) => {
   // Auto focus on mount
   useEffect(() => {
     props.autoFocus && inputRef.current && inputRef.current.focus();
+    // eslint-disable-next-line
   }, [inputRef.current, props.autoFocus]);
 
   // Set input colors by result state and theme

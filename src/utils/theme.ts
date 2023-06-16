@@ -12,21 +12,25 @@ declare module '@mui/material/styles' {
   interface Palette {
     bg: {
       dialog: string;
+      header: string;
     };
   }
 
   interface PaletteOptions {
     bg: {
       dialog: string;
+      header: string;
     };
   }
 
   interface PaletteColor {
     dialog?: string;
+    header?: string;
   }
 
   interface SimplePaletteColorOptions {
     dialog?: string;
+    header?: string;
   }
 }
 
@@ -53,10 +57,11 @@ export const darkTheme = createTheme({
       paper: '#1f1f1f',
     },
     action: {
-      hover: 'rgba(255, 255, 255, 0.1)',
+      hover: 'rgba(255, 255, 255, 0.08)',
     },
     bg: {
       dialog: '#232323',
+      header: '#1a1a1a',
     },
     error,
     mode: 'dark',
@@ -69,13 +74,15 @@ export const darkTheme = createTheme({
 export const lightTheme = createTheme({
   palette: {
     background: {
-      paper: '#eeeeee',
+      default: '#eeeeee',
+      paper: '#ffffff',
     },
     action: {
-      hover: 'rgba(0, 0, 0, 0.1)',
+      hover: 'rgba(0, 0, 0, 0.04)',
     },
     bg: {
       dialog: '#ffffff',
+      header: '#f6f6f6',
     },
     error,
     mode: 'light',

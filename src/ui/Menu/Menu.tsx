@@ -1,14 +1,6 @@
 import { memo, useCallback, useState } from 'react';
 import { IconName, IconPrefix } from '@fortawesome/free-solid-svg-icons';
-import {
-  Box,
-  Button,
-  Popover as MuiPopover,
-  PopoverOrigin,
-  SxProps,
-  Theme,
-  Tooltip,
-} from '@mui/material';
+import { Button, PopoverOrigin, Typography } from '@mui/material';
 import clsx from 'clsx';
 
 // Styles
@@ -19,41 +11,21 @@ import { ColorType, FontSize } from '../../types/mui.types';
 import { MenuItem as IMenuItem } from '../../types/shared.types';
 
 // UI
-import IconButton from '../IconButton/IconButton';
-
-type MenuItemProps = {
-  classes?: string;
-  hideIcon?: boolean;
-  title: string;
-  onClick: () => void;
-};
-
-const MenuItem = (props: MenuItemProps) => {
-  return (
-    <Button
-      className={clsx(styles['menu-item'], props.classes && props.classes)}
-      color="inherit"
-      onClick={props.onClick}
-    >
-      {props.title}
-    </Button>
-  );
-};
+import Icon from '../Icon/Icon';
+import MenuPopover from './MenuPopover';
 
 type MenuProps = {
   anchorOrigin?: PopoverOrigin;
   className?: string;
   color?: ColorType;
+  disabled?: boolean;
   hideItemIcon?: boolean;
   icon?: [IconPrefix, IconName];
   iconSize?: FontSize;
-  id?: string;
   items: IMenuItem[];
-  padding?: string | undefined;
-  sx?: SxProps<Theme>;
-  title?: string;
-  tooltip?: string;
+  title: string;
   transformOrigin?: PopoverOrigin;
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   onAction: (action: any) => void;
 };
 
@@ -64,7 +36,7 @@ const Menu = (props: MenuProps) => {
   /**
    * Handler on menu click.
    */
-  const onMenuClick = useCallback((event: any) => {
+  const onClick = useCallback((event: any) => {
     event.preventDefault();
     event.stopPropagation();
     setAnchorMenu(event.currentTarget);
@@ -73,77 +45,52 @@ const Menu = (props: MenuProps) => {
   /**
    * Handler to close menu.
    */
-  const onMenuClose = useCallback(() => {
+  const onClose = useCallback(() => {
     setAnchorMenu(null);
   }, []);
 
   return (
     <>
-      {props.icon ? (
-        <Tooltip placement="top" title={props.tooltip}>
-          <IconButton
-            className={props.className && props.className}
-            color={props.color}
-            icon={props.icon}
-            iconSize={props.iconSize}
-            id={props.id}
-            padding={props.padding}
-            sx={{ ...props.sx }}
-            onClick={onMenuClick}
-          />
-        </Tooltip>
-      ) : (
-        <Button
-          id="basic-button"
-          aria-controls={Boolean(anchorMenu) ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={Boolean(anchorMenu) ? 'true' : undefined}
-          className={styles['menu']}
-          onClick={onMenuClick}
-        >
-          {props.title}
-        </Button>
-      )}
-      <MuiPopover
-        anchorEl={anchorMenu}
-        anchorOrigin={
-          props.anchorOrigin ?? { horizontal: 'right', vertical: 'bottom' }
-        }
-        classes={{
-          paper: styles['menu-popover-paper'],
-          root: styles['menu-popover'],
+      <Button
+        id="basic-button"
+        aria-controls={Boolean(anchorMenu) ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={Boolean(anchorMenu) ? 'true' : undefined}
+        className={styles['menu']}
+        color={props.color ?? 'inherit'}
+        disableRipple
+        sx={{
+          '&:hover': {
+            backgroundColor: 'transparent',
+            color: 'primary.main',
+          },
         }}
-        open={Boolean(anchorMenu)}
-        transformOrigin={
-          props.transformOrigin ?? {
-            horizontal: 'right',
-            vertical: 'top',
-          }
-        }
-        onClose={() => setAnchorMenu(null)}
+        onClick={onClick}
       >
-        <Box
-          className={styles['menu-popover-content']}
-          sx={{ backgroundColor: 'bg.dialog' }}
-        >
-          {props.items.map((item, index) => {
-            if (!item.undefined) {
-              return (
-                <MenuItem
-                  key={index}
-                  hideIcon={props.hideItemIcon}
-                  title={item.title}
-                  onClick={() => {
-                    onMenuClose();
-                    props.onAction && props.onAction(item.action);
-                  }}
-                />
-              );
-            }
-            return null;
-          })}
-        </Box>
-      </MuiPopover>
+        <Typography className={styles['menu-title']} variant={props.variant}>
+          {props.title}
+        </Typography>
+        <Icon
+          classes={clsx(
+            styles['menu-icon'],
+            props.disabled && styles['menu-icon-disabled']
+          )}
+          icon={
+            props.icon ?? ['fas', anchorMenu ? 'chevron-up' : 'chevron-down']
+          }
+          size={props.iconSize ?? 'small'}
+          sx={{
+            padding:
+              !props.iconSize || props.iconSize === 'small' ? '2px' : undefined,
+          }}
+        />
+      </Button>
+      <MenuPopover
+        anchorMenu={anchorMenu}
+        items={props.items}
+        onAction={props.onAction}
+        onClose={onClose}
+      />
     </>
   );
 };

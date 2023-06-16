@@ -5,9 +5,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // Component
 import CollectionContent from '@/src/modules/collection/components/CollectionContent/CollectionContent';
+import CollectionList from '@/src/modules/collection/components/CollectionList/CollectionList';
 
 // Stores
 import useCollectionStore from '@/src/modules/collection/collection.store';
+
+// Styles
+import styles from './Collection.module.scss';
 
 // Types
 import { Collection } from '@/src/modules/collection/collection.types';
@@ -39,6 +43,7 @@ export default function Collection(
     return () => {
       setCollection(undefined);
     };
+    // eslint-disable-next-line
   }, [props.id]);
 
   return (
@@ -46,7 +51,10 @@ export default function Collection(
       <Head>
         <title>Metrostart • {collection?.name}</title>
       </Head>
-      <div>{collection && <CollectionContent collection={collection} />}</div>
+      <div className={styles['collection']}>
+        <CollectionList />
+        {collection && <CollectionContent collection={collection} />}
+      </div>
     </>
   );
 }

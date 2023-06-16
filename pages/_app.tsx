@@ -57,6 +57,7 @@ function App(props: MyAppProps) {
         setCollections(mapCollectionsWithoutLinks(initialCollections));
       }
     }
+    // eslint-disable-next-line
   }, []);
 
   // Set collection data on mount
