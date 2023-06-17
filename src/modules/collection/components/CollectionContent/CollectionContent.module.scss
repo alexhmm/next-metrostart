@@ -1,10 +1,10 @@
 .collection-content {
-  @apply flex flex-col grow @container;
+  @apply flex flex-col grow h-fit @container;
   &-create-link-button {
     @apply w-fit;
   }
   &-main {
-    @apply gap-[1px] grid grid-cols-3 pb-4 lg:pb-8;
+    @apply gap-[1px] grid grid-cols-3;
     @apply @md:grid-cols-4;
     @apply @xl:grid-cols-5;
     @apply @3xl:grid-cols-6;
@@ -16,7 +16,7 @@
   &-header {
     @apply border-0 border-b border-solid flex flex-col px-4 py-2 lg:px-8 lg:py-4;
     &-description {
-      @apply text-sm;
+      @apply mt-2 text-sm;
     }
     &-title {
       @apply flex items-center justify-between lg:justify-start;

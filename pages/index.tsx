@@ -58,7 +58,7 @@ export default function Home(
       <Head>
         <title>Metrostart • Home</title>
       </Head>
-      <main className={styles['home']}>
+      <div className={styles['home']}>
         {collection && <CollectionContent collection={collection} />}
         <Link href="/" locale={changeTo}>
           <TextButtonOutlined className="mt-4">
@@ -68,7 +68,7 @@ export default function Home(
         {collection && (
           <Link href={`/collections/${collection.id}`}>{collection.name}</Link>
         )}
-      </main>
+      </div>
     </>
   );
 }

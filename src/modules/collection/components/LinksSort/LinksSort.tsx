@@ -1,6 +1,5 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
 import {
   DragDropContext,
   Droppable,
@@ -37,7 +36,7 @@ const LinkSortableItem: FC<LinkSortableItemProps> = (props) => {
       {...props.provided.dragHandleProps}
     >
       {props.link.icon && (
-        <Image
+        <img
           alt={props.link.name}
           className={styles['link-sortable-item-image']}
           src={props.link.icon}

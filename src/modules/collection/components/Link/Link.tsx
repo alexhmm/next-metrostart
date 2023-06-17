@@ -1,5 +1,4 @@
 import { FC, memo, useCallback } from 'react';
-import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
 
 // Hooks
@@ -79,7 +78,7 @@ const LinkButton: FC<LinkButtonProps> = (props) => {
       />
       {props.link && props.link.icon && (
         <>
-          <Image alt={props.link.name} src={props.link.icon} />
+          <img alt={props.link.name} src={props.link.icon} />
           <Typography className={styles['link-title']}>
             {props.link.name}
           </Typography>

@@ -2,6 +2,7 @@ import { FC, ReactNode, memo } from 'react';
 import { Box } from '@mui/material';
 
 // Components
+import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
 // Styles
@@ -15,7 +16,8 @@ const Layout: FC<LayoutProps> = (props) => {
   return (
     <Box className={styles['layout']}>
       <Header />
-      <div>{props.children}</div>
+      <main className={styles['layout-main']}>{props.children}</main>
+      <Footer />
     </Box>
   );
 };
