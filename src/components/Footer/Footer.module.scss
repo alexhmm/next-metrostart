@@ -1,6 +1,42 @@
+.dropdown-language-item {
+  @apply flex items-center;
+  &-image {
+    @apply h-4 object-cover w-6;
+  }
+  &-title {
+    @apply ml-2;
+  }
+}
+
 .footer {
-  @apply flex flex-col mt-16 w-full lg:mt-32;
+  @apply flex flex-col mt-4 w-full lg:mt-16;
   &-content {
-    @apply p-4 lg:px-0 lg:py-4;
+    @apply flex gap-4 p-4 text-xs lg:px-0 lg:py-16;
+    &-language {
+      @apply w-48;
+      &-icon {
+        &-margin {
+          @apply ml-1;
+        }
+        &-padding {
+          @apply p-1;
+        }
+      }
+      &-title {
+        @apply text-xs;
+      }
+    }
+    &-info {
+      @apply flex flex-col gap-8 grow items-end;
+      &-email {
+        @apply flex items-center uppercase;
+        &-icon {
+          @apply ml-1 p-1;
+        }
+      }
+    }
+    &-links {
+      @apply flex flex-col gap-4 pt-1 uppercase;
+    }
   }
 }

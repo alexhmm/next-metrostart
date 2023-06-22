@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { ReactNode, memo, useCallback, useState } from 'react';
 import { IconName, IconPrefix } from '@fortawesome/free-solid-svg-icons';
 import { Button, PopoverOrigin, Typography } from '@mui/material';
 import clsx from 'clsx';
@@ -8,7 +8,7 @@ import styles from './Menu.module.scss';
 
 // Types
 import { ColorType, FontSize } from '../../types/mui.types';
-import { MenuItem as IMenuItem } from '../../types/shared.types';
+import { MenuItem as IMenuItem } from '../../types/ui.types';
 
 // UI
 import Icon from '../Icon/Icon';
@@ -23,7 +23,8 @@ type MenuProps = {
   icon?: [IconPrefix, IconName];
   iconSize?: FontSize;
   items: IMenuItem[];
-  title: string;
+  title: ReactNode | string;
+  titleClassName?: string;
   transformOrigin?: PopoverOrigin;
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   onAction: (action: any) => void;
@@ -67,17 +68,21 @@ const Menu = (props: MenuProps) => {
         }}
         onClick={onClick}
       >
-        <Typography className={styles['menu-title']} variant={props.variant}>
+        <Typography
+          className={clsx(
+            styles['menu-title'],
+            props.titleClassName && props.titleClassName
+          )}
+          variant={props.variant}
+        >
           {props.title}
         </Typography>
         <Icon
-          classes={clsx(
+          className={clsx(
             styles['menu-icon'],
             props.disabled && styles['menu-icon-disabled']
           )}
-          icon={
-            props.icon ?? ['fas', anchorMenu ? 'chevron-up' : 'chevron-down']
-          }
+          icon={props.icon ?? ['fas', anchorMenu ? 'caret-up' : 'caret-down']}
           size={props.iconSize ?? 'small'}
           sx={{
             padding:

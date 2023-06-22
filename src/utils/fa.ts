@@ -5,6 +5,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 // } from '@fortawesome/free-regular-svg-icons';
 
 import {
+  faArrowUpRightFromSquare as fasArrowUpRightFromSquare,
+  faCaretDown as fasCaretDown,
+  faCaretUp as fasCaretUp,
   faChevronDown as fasChevronDown,
   faChevronUp as fasChevronUp,
   faEllipsisV as fasEllipsisV,
@@ -16,4 +19,13 @@ import {
 // library.add(farHeart, farSquareMinus, farSquarePlus);
 
 // Add free solid icons to libary
-library.add(fasChevronDown, fasChevronUp, fasEllipsisV, fasPlus, fasTimes);
+library.add(
+  fasArrowUpRightFromSquare,
+  fasCaretDown,
+  fasCaretUp,
+  fasChevronDown,
+  fasChevronUp,
+  fasEllipsisV,
+  fasPlus,
+  fasTimes
+);

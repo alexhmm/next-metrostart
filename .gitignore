@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+# environments
+.env
+.env.development
+.env.production
+
 # testing
 /coverage
 

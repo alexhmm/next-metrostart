@@ -61,7 +61,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         }}
       >
         <Icon
-          classes={clsx(
+          className={clsx(
             styles['icon-button-icon'],
             disabled && styles['icon-button-disabled']
           )}

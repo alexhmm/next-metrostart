@@ -12,10 +12,9 @@ import PropTypes from 'prop-types';
 
 // Types
 import { ColorType, FontSize } from '../../types/mui.types';
-import { getDisplayName } from 'next/dist/shared/lib/utils';
 
 type IconProps = {
-  classes?: string;
+  className?: string;
   color?: ColorType;
   htmlColor?: string;
   icon: [IconPrefix, IconName];
@@ -45,7 +44,7 @@ const Icon = forwardRef(
 
     return (
       <SvgIcon
-        className={props.classes && props.classes}
+        className={props.className && props.className}
         color={props.color && props.color}
         fontSize={props.size ?? 'small'}
         htmlColor={props.htmlColor && props.htmlColor}

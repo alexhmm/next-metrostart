@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import styles from './Menu.module.scss';
 
 // Types
-import { MenuItem as IMenuItem } from '../../types/shared.types';
+import { MenuItem as IMenuItem } from '../../types/ui.types';
 
 type MenuItemProps = {
   classes?: string;
