@@ -68,7 +68,7 @@ const CollectionList: FC = () => {
             className={styles['collection-list-content-header-title']}
             variant="h6"
           >
-            {t<any>('collection:your_library')}
+            {t('collection:your_library')}
           </Typography>
           <IconButton
             icon={['fas', 'plus']}

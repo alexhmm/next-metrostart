@@ -44,7 +44,7 @@ const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
   // #todo: Name validation
   const collectionDeleteSchema = z.object({
     name: z.string().min(1, {
-      message: t<any>('collection:name.error'),
+      message: t('collection:name.error').toString(),
     }),
   });
 
@@ -103,20 +103,20 @@ const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
         className={styles['collection-delete-text']}
         color="text.secondary"
       >
-        {t<any>('collection:delete.text')}
+        {t('collection:delete.text')}
       </Typography>
       <Input
         autoFocus
         classes={styles['collection-delete-name']}
-        label={t<any>('collection:name.label')}
+        label={t('collection:name.label')}
         message={errors?.name && errors.name.message?.toString()}
-        placeholder={t<any>('collection:name.placeholder')}
+        placeholder={t('collection:name.placeholder').toString()}
         register={register('name')}
         state={errors?.name && ResultState.Error}
       />
       <div className={styles['collection-delete-submit']}>
         <TextButtonOutlined type="submit">
-          {t<any>('collection:delete.title')}
+          {t('collection:delete.title')}
         </TextButtonOutlined>
       </div>
     </form>

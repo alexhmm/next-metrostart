@@ -18,7 +18,7 @@ const useCollection = () => {
     return {
       id,
       links: [],
-      name: `${t<any>('collection:title')} ${id}`,
+      name: `${t('collection:title')} ${id}`,
     };
   };
 
@@ -30,19 +30,19 @@ const useCollection = () => {
     return [
       {
         action: CollectionMenuAction.Create,
-        title: t<any>('collection:link.create_edit.title_create'),
+        title: t('collection:link.create_edit.title_create'),
       },
       {
         action: CollectionMenuAction.Sort,
-        title: t<any>('collection:link.sort.title'),
+        title: t('collection:link.sort.title'),
       },
       {
         action: CollectionMenuAction.Update,
-        title: t<any>('collection:create_edit.title_edit'),
+        title: t('collection:create_edit.title_edit'),
       },
       {
         action: CollectionMenuAction.Delete,
-        title: t<any>('collection:delete.title'),
+        title: t('collection:delete.title'),
       },
     ];
   };
@@ -55,11 +55,11 @@ const useCollection = () => {
     return [
       {
         action: CrudAction.Update,
-        title: t<any>('collection:link.create_edit.title_edit'),
+        title: t('collection:link.create_edit.title_edit'),
       },
       {
         action: CrudAction.Delete,
-        title: t<any>('collection:link.delete'),
+        title: t('collection:link.delete'),
       },
     ];
   };

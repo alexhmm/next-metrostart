@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @type {import('next-i18next').UserConfig}
  */
@@ -6,7 +8,6 @@ module.exports = {
   debug: process.env.NODE_ENV === 'development',
   i18n: {
     defaultLocale: 'en',
-    // defaultNs: 'common',
     locales: ['de', 'en'],
   },
   /** To avoid issues when deploying to some paas (vercel...) */

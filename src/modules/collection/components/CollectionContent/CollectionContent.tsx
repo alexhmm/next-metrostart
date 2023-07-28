@@ -130,7 +130,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
           <Menu
             items={getCollectionMenuActions()}
             onAction={onCollectionMenuAction}
-            title={collection?.name ?? t<any>('collection:title')}
+            title={collection?.name ?? t('collection:title')}
             variant="h5"
           />
         </div>
@@ -163,7 +163,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       <Dialog
         open={collectionCreate || !!collectionEdit}
         // #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'.
-        title={t<any>(
+        title={t(
           collectionCreate
             ? 'collection:create_edit.title_create'
             : 'collection:create_edit.title_edit'
@@ -183,7 +183,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       </Dialog>
       <Dialog
         open={!!collectionDelete}
-        title={t<any>('collection:delete.title').toString()}
+        title={t('collection:delete.title').toString()}
         onClose={() => setCollectionDelete(undefined)}
       >
         {collection && collection.id && (
@@ -195,7 +195,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       </Dialog>
       <Dialog
         open={!!collectionSort}
-        title={t<any>('collection:link.sort.title').toString()}
+        title={t('collection:link.sort.title').toString()}
         onClose={() => setCollectionSort(undefined)}
       >
         {collection && collection.id && (
@@ -207,14 +207,14 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       </Dialog>
       <Dialog
         open={linkCreate}
-        title={t<any>('collection:link.create_edit.title_create').toString()}
+        title={t('collection:link.create_edit.title_create').toString()}
         onClose={() => setLinkCreate(false)}
       >
         <LinkItemCreateEdit onClose={() => setLinkCreate(false)} />
       </Dialog>
       <Dialog
         open={!!linkEdit}
-        title={t<any>('collection:link.create_edit.title_edit').toString()}
+        title={t('collection:link.create_edit.title_edit').toString()}
         onClose={() => setLinkEdit(undefined)}
       >
         <LinkItemCreateEdit

@@ -49,7 +49,7 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
   const linkItemCreateEditSchema = z.object({
     description: z.string(),
     name: z.string().min(1, {
-      message: t<any>('collection:name.error'),
+      message: t('collection:name.error').toString(),
     }),
   });
 
@@ -119,23 +119,25 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
         autoFocus
         classes={styles['collection-create-edit-item']}
         defaultValue={collection?.name}
-        label={t<any>('collection:name.label')}
+        label={t('collection:name.label')}
         message={errors?.name && errors.name.message?.toString()}
-        placeholder={t<any>('collection:name.placeholder')}
+        placeholder={t('collection:name.placeholder').toString()}
         register={register('name')}
         state={errors?.name && ResultState.Error}
       />
       <Input
         classes={styles['collection-create-edit-item']}
         defaultValue={collection?.description}
-        label={t<any>('collection:create_edit.description.label')}
+        label={t('collection:create_edit.description.label')}
         message={errors?.name && errors.name.message?.toString()}
-        placeholder={t<any>('collection:create_edit.description.placeholder')}
+        placeholder={t(
+          'collection:create_edit.description.placeholder'
+        ).toString()}
         register={register('description')}
       />
       <div className={styles['collection-create-edit-actions']}>
         <TextButtonOutlined type="submit">
-          {t<any>('common:submit')}
+          {t('common:submit')}
         </TextButtonOutlined>
       </div>
     </form>

@@ -128,7 +128,7 @@ const LinksSort: FC<LinksSortProps> = (props) => {
       </DragDropContext>
       <div className={styles['links-sort-submit']}>
         <TextButtonOutlined onClick={onSubmit}>
-          {t<any>('collection:link.sort.submit')}
+          {t('collection:link.sort.submit')}
         </TextButtonOutlined>
       </div>
     </div>

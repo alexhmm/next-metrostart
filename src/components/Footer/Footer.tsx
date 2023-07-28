@@ -26,11 +26,11 @@ const DropdownLanguageItem: FC<DropdownLanguageItemProps> = (props) => {
   switch (props.locale) {
     case Language.German:
       imgSrc = '/assets/de.svg';
-      title = t<any>('common:settings.language.de');
+      title = t('common:settings.language.de').toString();
       break;
     default:
       imgSrc = '/assets/en.svg';
-      title = t<any>('common:settings.language.en');
+      title = t('common:settings.language.en').toString();
       break;
   }
 
@@ -91,8 +91,10 @@ const Footer: FC = () => {
           )}
         </div>
         <div className={styles['footer-content-links']}>
-          <PrimaryLink href={`/about`}>About</PrimaryLink>
-          <PrimaryLink href={`/imprint`}>Imprint</PrimaryLink>
+          <PrimaryLink href={`/about`}>{t('common:pages.about')}</PrimaryLink>
+          <PrimaryLink href={`/imprint`}>
+            {t('common:pages.imprint')}
+          </PrimaryLink>
         </div>
         <div className={styles['footer-content-info']}>
           <PrimaryLink

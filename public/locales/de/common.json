@@ -1,4 +1,8 @@
 {
+  "pages": {
+    "about": "Über uns",
+    "imprint": "Impressum"
+  },
   "settings": {
     "language": {
       "de": "Deutsch (DE)",

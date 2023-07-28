@@ -46,10 +46,10 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
   // React hook form validation schema
   const linkItemCreateEditSchema = z.object({
     name: z.string().min(1, {
-      message: t<any>('collection:link.create_edit.name.error'),
+      message: t('collection:link.create_edit.name.error').toString(),
     }),
     url: z.string().min(1, {
-      message: t<any>('collection:link.create_edit.url.error'),
+      message: t('collection:link.create_edit.url.error').toString(),
     }),
   });
 
@@ -122,24 +122,28 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
         autoFocus
         classes={styles['link-item-create-edit-item']}
         defaultValue={props.link?.name}
-        label={t<any>('collection:link.create_edit.name.label')}
+        label={t('collection:link.create_edit.name.label')}
         message={errors?.name && errors.name.message?.toString()}
-        placeholder={t<any>('collection:link.create_edit.name.placeholder')}
+        placeholder={t(
+          'collection:link.create_edit.name.placeholder'
+        ).toString()}
         register={register('name')}
         state={errors?.name && ResultState.Error}
       />
       <Input
         classes={styles['link-item-create-edit-item']}
         defaultValue={props.link?.url}
-        label={t<any>('collection:link.create_edit.url.label')}
+        label={t('collection:link.create_edit.url.label')}
         message={errors?.url && errors.url.message?.toString()}
-        placeholder={t<any>('collection:link.create_edit.url.placeholder')}
+        placeholder={t(
+          'collection:link.create_edit.url.placeholder'
+        ).toString()}
         register={register('url')}
         state={errors?.url && ResultState.Error}
       />
       <div className={styles['link-item-create-edit-actions']}>
         <TextButtonOutlined type="submit">
-          {t<any>('common:submit')}
+          {t('common:submit')}
         </TextButtonOutlined>
       </div>
     </form>
