@@ -11,6 +11,7 @@
     "text": "Tippe den Namen ein um die Sammlung zu löschen.",
     "title": "Sammlung löschen"
   },
+  "export": "Sammlung exportieren",
   "link": {
     "create_edit": {
       "name": {

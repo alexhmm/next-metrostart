@@ -11,6 +11,7 @@
     "text": "Type the name of the collection to confirm deletion.",
     "title": "Delete collection"
   },
+  "export": "Export collection",
   "link": {
     "create_edit": {
       "name": {

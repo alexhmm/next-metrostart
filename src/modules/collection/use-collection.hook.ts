@@ -41,6 +41,10 @@ const useCollection = () => {
         title: t('collection:create_edit.title_edit'),
       },
       {
+        action: CollectionMenuAction.Export,
+        title: t('collection:export'),
+      },
+      {
         action: CollectionMenuAction.Delete,
         title: t('collection:delete.title'),
       },

@@ -1,6 +1,7 @@
 export enum CollectionMenuAction {
   Create = 'CREATE',
   Delete = 'DELETE',
+  Export = 'EXPORT',
   Sort = 'SORT',
   Update = 'UPDATE',
 }

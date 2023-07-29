@@ -20,6 +20,20 @@ export const updateCollections = (collections: Collection[]) => {
 };
 
 /**
+ * Export a collection to a json file.
+ * @param collection Collection
+ */
+export const exportCollection = (collection: Collection) => {
+  const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+    JSON.stringify(collection)
+  )}`;
+  const link = document.createElement('a');
+  link.href = jsonString;
+  link.download = `${collection.name ?? collection.id}.json`;
+  link.click();
+};
+
+/**
  * Get a collection by id.
  * @param id Collection id
  * @returns Collection

@@ -31,7 +31,11 @@ import Dialog from '@/src/ui/Dialog/Dialog';
 import Menu from '@/src/ui/Menu/Menu';
 
 // Utils
-import { getCollections, updateCollections } from '../../collection.utils';
+import {
+  exportCollection,
+  getCollections,
+  updateCollections,
+} from '../../collection.utils';
 
 type CollectionContentProps = {
   collection: Collection;
@@ -79,6 +83,9 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
           break;
         case CollectionMenuAction.Delete:
           collection?.id && setCollectionDelete(collection.id);
+          break;
+        case CollectionMenuAction.Export:
+          exportCollection(collection);
           break;
         case CollectionMenuAction.Sort:
           collection?.id && setCollectionSort(collection.id);
@@ -162,7 +169,6 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       </Box>
       <Dialog
         open={collectionCreate || !!collectionEdit}
-        // #TODO: Type 'TFunctionDetailedResult<never>' is not assignable to type 'ReactI18NextChildren'.
         title={t(
           collectionCreate
             ? 'collection:create_edit.title_create'
