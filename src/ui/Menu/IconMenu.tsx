@@ -1,6 +1,8 @@
-import { memo, useCallback, useState } from 'react';
-import { IconName, IconPrefix } from '@fortawesome/free-solid-svg-icons';
+import { ReactNode, memo, useCallback, useState } from 'react';
 import { PopoverOrigin, SxProps, Theme, Tooltip } from '@mui/material';
+
+// Icons
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // Types
 import { ColorType, FontSize } from '../../types/mui.types';
@@ -14,7 +16,7 @@ type IconMenuProps = {
   anchorOrigin?: PopoverOrigin;
   className?: string;
   color?: ColorType;
-  icon?: [IconPrefix, IconName];
+  icon?: ReactNode;
   iconSize?: FontSize;
   id?: string;
   items: IMenuItem[];
@@ -51,7 +53,7 @@ const IconMenu = (props: IconMenuProps) => {
         <IconButton
           className={props.className && props.className}
           color={props.color}
-          icon={props.icon ?? ['fas', 'ellipsis-v']}
+          icon={props.icon ?? <MoreVertIcon />}
           iconSize={props.iconSize}
           id={props.id}
           padding={props.padding}

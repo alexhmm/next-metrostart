@@ -1,13 +1,5 @@
 .dropdown {
-  @apply flex items-center normal-case p-0 rounded-none w-fit;
-  &-icon {
-    &-margin {
-      @apply ml-2;
-    }
-    &-padding {
-      @apply p-0.5;
-    }
-  }
+  @apply flex gap-1 items-center normal-case p-0 rounded-none w-fit;
 }
 
 .dropdown-item {

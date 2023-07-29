@@ -1,7 +1,10 @@
 import { ReactNode, memo, useCallback, useState } from 'react';
-import { IconName, IconPrefix } from '@fortawesome/free-solid-svg-icons';
 import { Button, PopoverOrigin, Typography } from '@mui/material';
 import clsx from 'clsx';
+
+// Icons
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 // Styles
 import styles from './Menu.module.scss';
@@ -11,7 +14,6 @@ import { ColorType, FontSize } from '../../types/mui.types';
 import { MenuItem as IMenuItem } from '../../types/ui.types';
 
 // UI
-import Icon from '../Icon/Icon';
 import MenuPopover from './MenuPopover';
 
 type MenuProps = {
@@ -20,7 +22,6 @@ type MenuProps = {
   color?: ColorType;
   disabled?: boolean;
   hideItemIcon?: boolean;
-  icon?: [IconPrefix, IconName];
   iconSize?: FontSize;
   items: IMenuItem[];
   title: ReactNode | string;
@@ -77,18 +78,7 @@ const Menu = (props: MenuProps) => {
         >
           {props.title}
         </Typography>
-        <Icon
-          className={clsx(
-            styles['menu-icon'],
-            props.disabled && styles['menu-icon-disabled']
-          )}
-          icon={props.icon ?? ['fas', anchorMenu ? 'caret-up' : 'caret-down']}
-          size={props.iconSize ?? 'small'}
-          sx={{
-            padding:
-              !props.iconSize || props.iconSize === 'small' ? '2px' : undefined,
-          }}
-        />
+        {anchorMenu ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </Button>
       <MenuPopover
         anchorMenu={anchorMenu}

@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 import { EmotionCache } from '@emotion/react';
-import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-config.autoAddCss = false;
 
 // Components
 import Layout from '@/src/components/Layout/Layout';
@@ -22,7 +19,6 @@ import { Collection } from '@/src/modules/collection/collection.types';
 import { mapCollectionsWithoutLinks } from '@/src/modules/collection/collection.utils';
 import createEmotionCache from '@/src/utils/create-emotion-cache';
 import PageProvider from '@/src/providers/PageProvider';
-import '@/src/utils/fa';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

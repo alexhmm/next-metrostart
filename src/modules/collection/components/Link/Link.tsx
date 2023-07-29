@@ -4,6 +4,9 @@ import { Box, Typography } from '@mui/material';
 // Hooks
 import useCollection from '../../use-collection.hook';
 
+// Icons
+import AddIcon from '@mui/icons-material/Add';
+
 // Styles
 import styles from './Link.module.scss';
 
@@ -12,7 +15,6 @@ import { Link as ILink } from '@/src/modules/collection/collection.types';
 import { CrudAction } from '@/src/types/shared.types';
 
 // UI
-import Icon from '@/src/ui/Icon/Icon';
 import IconMenu from '@/src/ui/Menu/IconMenu';
 
 type LinkButtonProps = {
@@ -71,7 +73,6 @@ const LinkButton: FC<LinkButtonProps> = (props) => {
     >
       <IconMenu
         className={styles['link-menu']}
-        icon={['fas', 'ellipsis-v']}
         id="menu"
         items={getLinkMenuActions()}
         onAction={onMenuAction}
@@ -84,9 +85,7 @@ const LinkButton: FC<LinkButtonProps> = (props) => {
           </Typography>
         </>
       )}
-      {props.type === CrudAction.Create && (
-        <Icon icon={['fas', 'plus']} size="medium" />
-      )}
+      {props.type === CrudAction.Create && <AddIcon />}
     </Box>
   );
 };

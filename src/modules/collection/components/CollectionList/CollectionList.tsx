@@ -1,7 +1,10 @@
 import { FC, memo, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Icon, Typography } from '@mui/material';
+
+// Icons
+import AddIcon from '@mui/icons-material/Add';
 
 // Stores
 import useCollectionStore from '@/src/modules/collection/collection.store';
@@ -71,7 +74,7 @@ const CollectionList: FC = () => {
             {t('collection:your_library')}
           </Typography>
           <IconButton
-            icon={['fas', 'plus']}
+            icon={<AddIcon />}
             onClick={() => setCollectionCreate(true)}
           />
         </div>

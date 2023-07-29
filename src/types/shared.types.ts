@@ -16,3 +16,8 @@ export enum ResultState {
   Success = 'SUCCESS',
   Warning = 'WARNING',
 }
+
+export interface MenuItem {
+  action: any;
+  title: string;
+}

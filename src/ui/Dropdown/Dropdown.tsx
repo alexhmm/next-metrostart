@@ -2,14 +2,15 @@ import { ReactNode, memo, useCallback, useEffect, useState } from 'react';
 import { Box, Button, Popover, PopoverOrigin, Typography } from '@mui/material';
 import clsx from 'clsx';
 
+// Icons
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+
 // Styles
 import styles from './Dropdown.module.scss';
 
 // Types
 import { DropdownItem as IDropdownItem } from '../../types/ui.types';
-
-// UI
-import Icon from '../Icon/Icon';
 
 type DropdownItemProps = {
   title: ReactNode | string;
@@ -32,8 +33,7 @@ type DropdownProps = {
   anchorOrigin?: PopoverOrigin;
   className?: string;
   disabled?: boolean;
-  iconMarginClassName?: string;
-  iconPaddingClassName?: string;
+  iconSize?: 'small' | 'medium' | 'large';
   items: IDropdownItem[];
   titleClassName?: string;
   transformOrigin?: PopoverOrigin;
@@ -103,15 +103,17 @@ const Dropdown = (props: DropdownProps) => {
         >
           {title}
         </Typography>
-        <Icon
-          className={clsx(
-            styles['dropdown-icon'],
-            props.disabled && styles['dropdown-icon-disabled'],
-            props.iconMarginClassName ?? styles['dropdown-icon-margin'],
-            props.iconPaddingClassName ?? styles['dropdown-icon-padding']
-          )}
-          icon={['fas', anchorMenu ? 'caret-up' : 'caret-down']}
-        />
+        {anchorMenu ? (
+          <ArrowDropUpIcon
+            className={styles['dropdown-icon']}
+            fontSize={props.iconSize ?? 'medium'}
+          />
+        ) : (
+          <ArrowDropDownIcon
+            className={styles['dropdown-icon']}
+            fontSize={props.iconSize ?? 'medium'}
+          />
+        )}
       </Button>
       <Popover
         anchorEl={anchorMenu}

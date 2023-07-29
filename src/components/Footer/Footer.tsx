@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { Box, Divider } from '@mui/material';
 
+// Icons
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+
 // Styles
 import styles from './Footer.module.scss';
 
@@ -11,7 +14,6 @@ import { Language } from '@/src/types/shared.types';
 
 // UI
 import Dropdown from '@/src/ui/Dropdown/Dropdown';
-import Icon from '@/src/ui/Icon/Icon';
 import PrimaryLink from '@/src/ui/PrimaryLink/PrimaryLink';
 
 type DropdownLanguageItemProps = {
@@ -68,12 +70,7 @@ const Footer: FC = () => {
         <div className={styles['footer-content-language']}>
           {i18n.language && (
             <Dropdown
-              iconMarginClassName={
-                styles['footer-content-language-icon-margin']
-              }
-              iconPaddingClassName={
-                styles['footer-content-language-icon-padding']
-              }
+              iconSize="small"
               items={[
                 {
                   title: <DropdownLanguageItem locale={Language.English} />,
@@ -102,9 +99,8 @@ const Footer: FC = () => {
             href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
           >
             <span>{process.env.NEXT_PUBLIC_EMAIL}</span>
-            <Icon
+            <ArrowOutwardIcon
               className={styles['footer-content-info-email-icon']}
-              icon={['fas', 'arrow-up-right-from-square']}
             />
           </PrimaryLink>
           <Box sx={{ color: 'text.secondary' }}>

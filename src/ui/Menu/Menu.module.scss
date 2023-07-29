@@ -1,8 +1,5 @@
 .menu {
-  @apply flex items-center normal-case p-0 rounded-none w-fit;
-  &-icon {
-    @apply ml-2;
-  }
+  @apply flex gap-1 items-center normal-case p-0 rounded-none w-fit;
 }
 
 .menu-item {

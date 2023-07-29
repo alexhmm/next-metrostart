@@ -2,8 +2,13 @@ import { memo, ReactNode } from 'react';
 import { Dialog as MuiDialog, DialogContent, DialogTitle } from '@mui/material';
 import clsx from 'clsx';
 
+// Icons
+import CloseIcon from '@mui/icons-material/Close';
+
 // Styles
 import styles from './Dialog.module.scss';
+
+// UI
 import IconButton from '../IconButton/IconButton';
 
 type DialogProps = {
@@ -38,7 +43,7 @@ const Dialog = (props: DialogProps) => {
         <div className={styles['dialog-title-text']}>{props.title}</div>
         <IconButton
           className={styles['dialog-title-close']}
-          icon={['fas', 'times']}
+          icon={<CloseIcon />}
           onClick={props.onClose}
         />
       </DialogTitle>

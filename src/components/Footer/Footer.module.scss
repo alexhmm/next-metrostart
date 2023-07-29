@@ -14,14 +14,6 @@
     @apply flex gap-4 p-4 text-xs lg:px-0 lg:py-16;
     &-language {
       @apply w-48;
-      &-icon {
-        &-margin {
-          @apply ml-1;
-        }
-        &-padding {
-          @apply p-1;
-        }
-      }
       &-title {
         @apply text-xs;
       }
@@ -31,7 +23,7 @@
       &-email {
         @apply flex items-center uppercase;
         &-icon {
-          @apply ml-1 p-1;
+          @apply h-4 ml-1 w-4;
         }
       }
     }
