@@ -12,6 +12,7 @@
     "title": "Sammlung löschen"
   },
   "export": "Sammlung exportieren",
+  "import": "Sammlung importieren",
   "link": {
     "create_edit": {
       "name": {

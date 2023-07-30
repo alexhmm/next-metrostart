@@ -22,7 +22,7 @@ import styles from './CollectionContent.module.scss';
 import { CrudAction } from '@/src/types/shared.types';
 import {
   Collection,
-  CollectionMenuAction,
+  CollectionAction,
   Link as ILink,
 } from '@/src/modules/collection/collection.types';
 
@@ -43,7 +43,7 @@ type CollectionContentProps = {
 
 const CollectionContent: FC<CollectionContentProps> = (props) => {
   const { collection } = props;
-  const { getCollectionMenuActions } = useCollection();
+  const { getCollectionActions } = useCollection();
   const { t } = useTranslation();
 
   // Component state
@@ -72,25 +72,25 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
   // ######### //
 
   /**
-   * Handler on collection menu action.
-   * @param action CollectionMenuAction
+   * Handler on collection action.
+   * @param action CollectionAction
    */
-  const onCollectionMenuAction = useCallback(
-    (action: CollectionMenuAction) => {
+  const onCollectionAction = useCallback(
+    (action: CollectionAction) => {
       switch (action) {
-        case CollectionMenuAction.Create:
+        case CollectionAction.Create:
           setLinkCreate(true);
           break;
-        case CollectionMenuAction.Delete:
+        case CollectionAction.Delete:
           collection?.id && setCollectionDelete(collection.id);
           break;
-        case CollectionMenuAction.Export:
+        case CollectionAction.Export:
           exportCollection(collection);
           break;
-        case CollectionMenuAction.Sort:
+        case CollectionAction.Sort:
           collection?.id && setCollectionSort(collection.id);
           break;
-        case CollectionMenuAction.Update:
+        case CollectionAction.Update:
           collection?.id && setCollectionEdit(collection.id);
           break;
         default:
@@ -135,8 +135,8 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
       >
         <div className={styles['collection-content-header-title']}>
           <Menu
-            items={getCollectionMenuActions()}
-            onAction={onCollectionMenuAction}
+            items={getCollectionActions()}
+            onAction={onCollectionAction}
             title={collection?.name ?? t('collection:title')}
             variant="h5"
           />
@@ -164,7 +164,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
         ))}
         <Link
           type={CrudAction.Create}
-          onClick={() => onCollectionMenuAction(CollectionMenuAction.Create)}
+          onClick={() => onCollectionAction(CollectionAction.Create)}
         />
       </Box>
       <Dialog

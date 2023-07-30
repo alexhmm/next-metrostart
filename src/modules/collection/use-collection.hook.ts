@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 
 // Types
-import { CollectionMenuAction } from './collection.types';
+import { CollectionAction } from './collection.types';
 import { CrudAction, MenuItem } from '@/src/types/shared.types';
 
 const useCollection = () => {
@@ -10,7 +10,7 @@ const useCollection = () => {
 
   /**
    * Create empty collection item.
-   * @returns
+   * @returns Empty collection
    */
   const createCollection = () => {
     const id = uuidv4();
@@ -23,37 +23,54 @@ const useCollection = () => {
   };
 
   /**
-   * Get collection menu items.
-   * @returns
+   * Get collection actions.
+   * @returns MenuItem array
    */
-  const getCollectionMenuActions = (): MenuItem[] => {
+  const getCollectionActions = (): MenuItem[] => {
     return [
       {
-        action: CollectionMenuAction.Create,
+        action: CollectionAction.Create,
         title: t('collection:link.create_edit.title_create'),
       },
       {
-        action: CollectionMenuAction.Sort,
+        action: CollectionAction.Sort,
         title: t('collection:link.sort.title'),
       },
       {
-        action: CollectionMenuAction.Update,
+        action: CollectionAction.Update,
         title: t('collection:create_edit.title_edit'),
       },
       {
-        action: CollectionMenuAction.Export,
+        action: CollectionAction.Export,
         title: t('collection:export'),
       },
       {
-        action: CollectionMenuAction.Delete,
+        action: CollectionAction.Delete,
         title: t('collection:delete.title'),
       },
     ];
   };
 
   /**
+   * Get collection list actions.
+   * @returns MenuItem array
+   */
+  const getCollectionListActions = (): MenuItem[] => {
+    return [
+      {
+        action: CollectionAction.Create,
+        title: t('collection:create_edit.title_create'),
+      },
+      {
+        action: CollectionAction.Import,
+        title: t('collection:import'),
+      },
+    ];
+  };
+
+  /**
    * Get link menu items.
-   * @returns
+   * @returns MenuItem
    */
   const getLinkMenuActions = (): MenuItem[] => {
     return [
@@ -70,7 +87,8 @@ const useCollection = () => {
 
   return {
     createCollection,
-    getCollectionMenuActions,
+    getCollectionActions,
+    getCollectionListActions,
     getLinkMenuActions,
   };
 };

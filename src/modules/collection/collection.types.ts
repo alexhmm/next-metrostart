@@ -1,7 +1,8 @@
-export enum CollectionMenuAction {
+export enum CollectionAction {
   Create = 'CREATE',
   Delete = 'DELETE',
   Export = 'EXPORT',
+  Import = 'IMPORT',
   Sort = 'SORT',
   Update = 'UPDATE',
 }

@@ -56,8 +56,6 @@ const IconMenu = (props: IconMenuProps) => {
           icon={props.icon ?? <MoreVertIcon />}
           iconSize={props.iconSize}
           id={props.id}
-          padding={props.padding}
-          sx={{ ...props.sx }}
           onClick={onClick}
         />
       </Tooltip>

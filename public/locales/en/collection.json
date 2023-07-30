@@ -12,6 +12,7 @@
     "title": "Delete collection"
   },
   "export": "Export collection",
+  "import": "Import collection",
   "link": {
     "create_edit": {
       "name": {
