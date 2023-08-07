@@ -69,6 +69,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       ...(await serverSideTranslations(locale ?? 'en', [
         'common',
         'collection',
+        'header',
       ])),
       id: query.id,
     },

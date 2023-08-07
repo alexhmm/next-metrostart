@@ -1,29 +1,39 @@
-import { FC, memo } from 'react';
-import { Box, Button, Popover, PopoverOrigin } from '@mui/material';
-import clsx from 'clsx';
+import { FC, ReactNode, memo } from 'react';
+import { Box, Popover, PopoverOrigin } from '@mui/material';
 
 // Styles
 import styles from './Menu.module.scss';
 
 // Types
-import { MenuItem as IMenuItem } from '../../types/ui.types';
+import { MenuItem as IMenuItem, MenuElement } from '../../types/ui.types';
+
+// UI
+import MenuCheckbox from './MenuCheckbox';
+import MenuButton from './MenuButton';
 
 type MenuItemProps = {
+  checked?: boolean;
   classes?: string;
+  elem?: MenuElement;
+  icon?: ReactNode;
   title: string;
   onClick: () => void;
 };
 
 const MenuItem = (props: MenuItemProps) => {
-  return (
-    <Button
-      className={clsx(styles['menu-item'], props.classes && props.classes)}
-      color="inherit"
-      onClick={props.onClick}
-    >
-      {props.title}
-    </Button>
-  );
+  switch (props.elem) {
+    case MenuElement.Checkbox:
+      return (
+        <MenuCheckbox
+          checked={!!props.checked}
+          icon={props.icon}
+          title={props.title}
+          onClick={props.onClick}
+        />
+      );
+    default:
+      return <MenuButton {...props} />;
+  }
 };
 
 type MenuPopoverProps = {
@@ -57,13 +67,16 @@ const MenuPopover: FC<MenuPopoverProps> = (props) => {
     >
       <Box
         className={styles['menu-popover-content']}
-        sx={{ backgroundColor: 'bg.dialog' }}
+        sx={{ backgroundColor: 'bg.menu' }}
       >
         {props.items.map((item, index) => {
           if (!item.undefined) {
             return (
               <MenuItem
                 key={index}
+                checked={item.checked}
+                elem={item.elem}
+                icon={item.icon}
                 title={item.title}
                 onClick={() => {
                   props.onClose();

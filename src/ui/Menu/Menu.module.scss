@@ -5,8 +5,31 @@
   }
 }
 
+.menu-button {
+  @apply flex justify-start normal-case rounded-none w-full;
+}
+
+.menu-checkbox {
+  @apply flex items-center justify-between normal-case rounded-none;
+  &-content {
+    @apply flex gap-4 items-center justify-start;
+    &-elem {
+      @apply h-6 w-6;
+    }
+    &-title {
+      @apply grow;
+    }
+  }
+}
+
 .menu-item {
-  @apply flex justify-start normal-case px-4 py-1 rounded-none w-full;
+  @apply px-4 py-1;
+  &-icon {
+    @apply flex items-center justify-center;
+    & svg {
+      @apply mr-4 h-5 w-5;
+    }
+  }
 }
 
 .menu-popover {

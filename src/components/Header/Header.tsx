@@ -1,13 +1,26 @@
 import { FC, memo, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+
+// Hooks
+import useShared from '@/src/hooks/use-shared.hook';
+
+// Icons
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // Styles
 import styles from './Header.module.scss';
 import Link from 'next/link';
 
+// Types
+import { HeaderMenuAction } from '@/src/types/shared.types';
+
+// UI
+import IconMenu from '@/src/ui/Menu/IconMenu';
+
 const Header: FC = () => {
-  const { resolvedTheme, theme, setTheme } = useTheme();
+  const { getHeaderMenuItems } = useShared();
+  const { theme, setTheme } = useTheme();
 
   // Component state
   const [hasMounted, setHasMounted] = useState(false);
@@ -21,6 +34,20 @@ const Header: FC = () => {
   }, []);
 
   if (!hasMounted) return null;
+
+  // ######### //
+  // CALLBACKS //
+  // ######### //
+
+  const onMenuAction = (action: HeaderMenuAction) => {
+    switch (action) {
+      case HeaderMenuAction.ToggleTheme:
+        setTheme(theme === 'light' ? 'dark' : 'light');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Box
@@ -36,12 +63,11 @@ const Header: FC = () => {
           Metrostart
         </Typography>
       </Link>
-      <div className={styles['header-navigation']}></div>
-      <Button
-        onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
-      >
-        {theme === 'dark' ? 'Light Theme' : 'Dark Theme'}
-      </Button>
+      <IconMenu
+        items={getHeaderMenuItems()}
+        icon={<SettingsIcon />}
+        onAction={onMenuAction}
+      />
     </Box>
   );
 };

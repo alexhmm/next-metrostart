@@ -5,6 +5,10 @@ export enum CrudAction {
   Update = 'UPDATE',
 }
 
+export enum HeaderMenuAction {
+  ToggleTheme = 'TOGGLE_THEME',
+}
+
 export enum Language {
   English = 'en',
   German = 'de',
