@@ -82,9 +82,9 @@ const CollectionList: FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [listRef, listContentRef, scrollTopLast]);
 
+  // Import collection by json file
   useEffect(() => {
     if (filesContent && filesContent.length > 0) {
-      console.log('FILESCONTENT', filesContent);
       console.log(JSON.parse(filesContent[0].content));
 
       const collectionImport: Collection = JSON.parse(filesContent[0].content);
@@ -123,7 +123,6 @@ const CollectionList: FC = () => {
         setCollectionCreate(true);
         break;
       case CollectionAction.Import:
-        console.log('IMPORT', action);
         openFileSelector();
         break;
       default:
@@ -153,9 +152,18 @@ const CollectionList: FC = () => {
           />
         </div>
         {collections.map((collection) => (
-          <Link key={collection.id} href={`/collections/${collection.id}`}>
-            <Button className={styles['collection-list-item']} color="inherit">
-              {collection.name}
+          <Link
+            className={styles['collection-list-item']}
+            key={collection.id}
+            href={`/collections/${collection.id}`}
+          >
+            <Button
+              className={styles['collection-list-item-button']}
+              color="inherit"
+            >
+              <div className={styles['collection-list-item-button-text']}>
+                {collection.name}
+              </div>
             </Button>
           </Link>
         ))}

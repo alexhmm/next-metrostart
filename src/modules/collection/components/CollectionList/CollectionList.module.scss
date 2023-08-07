@@ -16,5 +16,11 @@
 }
 
 .collection-list-item {
-  @apply justify-start normal-case px-8 rounded-none text-base w-full;
+  @apply w-full;
+  &-button {
+    @apply flex justify-start normal-case px-8 rounded-none text-base truncate w-full;
+    &-text {
+      @apply text-left truncate w-full;
+    }
+  }
 }
