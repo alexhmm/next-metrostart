@@ -67,31 +67,33 @@ const Footer: FC = () => {
     <div className={styles['footer']}>
       <Divider />
       <div className={styles['footer-content']}>
-        <div className={styles['footer-content-language']}>
-          {i18n.language && (
-            <Dropdown
-              iconSize="small"
-              items={[
-                {
-                  title: <DropdownLanguageItem locale={Language.English} />,
-                  value: Language.English,
-                },
-                {
-                  title: <DropdownLanguageItem locale={Language.German} />,
-                  value: Language.German,
-                },
-              ]}
-              titleClassName={styles['footer-content-language-title']}
-              value={i18n.language}
-              onChange={onChangeLanguage}
-            />
-          )}
-        </div>
-        <div className={styles['footer-content-links']}>
-          <PrimaryLink href={`/about`}>{t('common:pages.about')}</PrimaryLink>
-          <PrimaryLink href={`/imprint`}>
-            {t('common:pages.imprint')}
-          </PrimaryLink>
+        <div className={styles['footer-content-main']}>
+          <div className={styles['footer-content-main-language']}>
+            {i18n.language && (
+              <Dropdown
+                iconSize="small"
+                items={[
+                  {
+                    title: <DropdownLanguageItem locale={Language.English} />,
+                    value: Language.English,
+                  },
+                  {
+                    title: <DropdownLanguageItem locale={Language.German} />,
+                    value: Language.German,
+                  },
+                ]}
+                titleClassName={styles['footer-content-main-language-title']}
+                value={i18n.language}
+                onChange={onChangeLanguage}
+              />
+            )}
+          </div>
+          <div className={styles['footer-content-main-links']}>
+            <PrimaryLink href={`/about`}>{t('common:pages.about')}</PrimaryLink>
+            <PrimaryLink href={`/imprint`}>
+              {t('common:pages.imprint')}
+            </PrimaryLink>
+          </div>
         </div>
         <div className={styles['footer-content-info']}>
           <PrimaryLink

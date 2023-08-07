@@ -1,5 +1,8 @@
 .menu {
   @apply flex gap-1 items-center normal-case p-0 rounded-none w-fit;
+  &-title {
+    @apply truncate;
+  }
 }
 
 .menu-item {

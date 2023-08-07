@@ -9,7 +9,7 @@
 }
 
 .link-sortable-item {
-  @apply flex items-center;
+  @apply cursor-pointer flex items-center;
   &-image {
     @apply aspect-square shrink-0 w-8;
   }

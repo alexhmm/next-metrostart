@@ -11,24 +11,27 @@
 .footer {
   @apply flex flex-col mt-4 w-full lg:mt-16;
   &-content {
-    @apply flex gap-4 p-4 text-xs lg:px-0 lg:py-16;
-    &-language {
-      @apply w-48;
-      &-title {
-        @apply text-xs;
+    @apply flex flex-col gap-8 px-4 py-8 text-xs md:flex-row lg:px-0 lg:py-16;
+    &-main {
+      @apply flex flex-col-reverse gap-8 md:flex-row;
+      &-language {
+        @apply w-48;
+        &-title {
+          @apply text-xs;
+        }
+      }
+      &-links {
+        @apply flex flex-col gap-4 pt-1 uppercase;
       }
     }
     &-info {
-      @apply flex flex-col gap-8 grow items-end;
+      @apply flex flex-col gap-4 grow md:gap-8 md:items-end;
       &-email {
         @apply flex items-center uppercase;
         &-icon {
           @apply h-4 ml-1 w-4;
         }
       }
-    }
-    &-links {
-      @apply flex flex-col gap-4 pt-1 uppercase;
     }
   }
 }
