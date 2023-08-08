@@ -10,8 +10,8 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import styles from './Menu.module.scss';
 
 // Types
-import { ColorType, FontSize } from '../../types/mui.types';
-import { MenuItem as IMenuItem } from '../../types/ui.types';
+import { ColorType, FontSize } from '@/src/types/mui.types';
+import { MenuItem as IMenuItem } from '@/src/types/shared.types';
 
 // UI
 import MenuPopover from './MenuPopover';

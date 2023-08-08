@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export enum CrudAction {
   Create = 'CREATE',
   Delete = 'DELETE',
@@ -7,6 +9,11 @@ export enum CrudAction {
 
 export enum HeaderMenuAction {
   ToggleTheme = 'TOGGLE_THEME',
+}
+
+export enum MenuElement {
+  Button = 'BUTTON',
+  Checkbox = 'CHECKBOX',
 }
 
 export enum Language {
@@ -21,7 +28,18 @@ export enum ResultState {
   Warning = 'WARNING',
 }
 
+export interface DropdownItem {
+  title: ReactNode | string;
+  value: any;
+}
+
 export interface MenuItem {
   action: any;
+  checked?: boolean;
+  elem?: MenuElement;
+  disabled?: boolean;
+  icon?: ReactNode;
   title: string;
+  tooltip?: string;
+  undefined?: boolean;
 }

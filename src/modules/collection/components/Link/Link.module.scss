@@ -1,5 +1,5 @@
 .link {
-  @apply aspect-square cursor-pointer duration-200 flex flex-col items-center justify-center normal-case p-10 relative transition-colors w-full;
+  @apply aspect-square cursor-pointer duration-200 flex flex-col items-center justify-center normal-case p-10 relative transition-colors w-full lg:p-12;
   &-menu {
     @apply absolute right-1 top-1 z-10;
   }
@@ -7,6 +7,6 @@
     @apply absolute bottom-1 left-0 px-2 shrink-0 text-center text-sm truncate w-full;
   }
   & img {
-    @apply aspect-square rounded-md max-w-full;
+    @apply aspect-square rounded-md w-full;
   }
 }

@@ -5,8 +5,8 @@ import { PopoverOrigin, SxProps, Theme, Tooltip } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // Types
-import { ColorType, FontSize } from '../../types/mui.types';
-import { MenuItem as IMenuItem } from '../../types/shared.types';
+import { ColorType, FontSize } from '@/src/types/mui.types';
+import { MenuItem as IMenuItem } from '@/src/types/shared.types';
 
 // UI
 import IconButton from '../IconButton/IconButton';

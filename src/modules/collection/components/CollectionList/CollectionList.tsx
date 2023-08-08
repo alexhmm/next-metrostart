@@ -17,7 +17,7 @@ import styles from './CollectionList.module.scss';
 import { Collection, CollectionAction } from '../../collection.types';
 
 // UI
-import IconMenu from '@/src/ui/Menu/IconMenu';
+import Menu from '@/src/ui/Menu/Menu';
 
 // Utils
 import {
@@ -138,17 +138,11 @@ const CollectionList: FC = () => {
         sx={{ backgroundColor: 'background.paper' }}
       >
         <div className={styles['collection-list-content-header']}>
-          <Typography
-            className={styles['collection-list-content-header-title']}
-            variant="h6"
-          >
-            {t('collection:your_library')}
-          </Typography>
-          <IconMenu
-            className={styles['link-menu']}
-            id="menu"
+          <Menu
             items={getCollectionListActions()}
             onAction={onMenuAction}
+            title={t('collection:your_library')}
+            variant="h6"
           />
         </div>
         {collections.map((collection) => (

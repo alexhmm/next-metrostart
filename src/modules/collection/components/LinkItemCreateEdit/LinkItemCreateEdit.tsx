@@ -5,11 +5,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
 
-// Hooks
-import useCollection from '../../use-collection.hook';
-
 // Stores
-import useCollectionStore from '../../collection.store';
+import useCollectionStore from '@/src/modules/collection/collection.store';
 
 // Styles
 import styles from './LinkItemCreateEdit.module.scss';
@@ -19,7 +16,7 @@ import {
   Collection,
   Link,
   LinkItemPostPatchRequest,
-} from '../../collection.types';
+} from '@/src/modules/collection/collection.types';
 import { ResultState } from '@/src/types/shared.types';
 
 // UI
@@ -27,7 +24,10 @@ import Input from '@/src/ui/Input/Input';
 import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
 
 // Utils
-import { getCollections, updateCollections } from '../../collection.utils';
+import {
+  getCollections,
+  updateCollections,
+} from '@/src/modules/collection/collection.utils';
 
 type LinkItemCreateEditProps = {
   link?: Link;

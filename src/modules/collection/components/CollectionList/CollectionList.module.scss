@@ -6,9 +6,6 @@
   @apply flex-col hidden pb-2 shrink-0 w-80 lg:flex lg:pb-4 lg:relative lg:top-0;
   &-header {
     @apply flex bottom-0 gap-2 h-16 items-center justify-between px-8 sticky shrink-0;
-    &-title {
-      @apply truncate;
-    }
   }
   &-logo {
     @apply box-border h-16 shrink-0 sticky top-0 z-10 w-full;

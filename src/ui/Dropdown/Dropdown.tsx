@@ -10,7 +10,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import styles from './Dropdown.module.scss';
 
 // Types
-import { DropdownItem as IDropdownItem } from '../../types/ui.types';
+import { DropdownItem as IDropdownItem } from '@/src/types/shared.types';
 
 type DropdownItemProps = {
   title: ReactNode | string;

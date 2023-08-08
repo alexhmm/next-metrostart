@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import styles from './IconButton.module.scss';
 
 // Types
-import { ColorType, FontSize } from '../../types/mui.types';
+import { ColorType, FontSize } from '@/src/types/mui.types';
 
 type IconButtonProps = {
   className?: string;
@@ -27,7 +27,14 @@ const IconButton = (props: IconButtonProps) => {
       )}
       color={props.color ?? 'inherit'}
       disabled={props.disabled && props.disabled}
+      disableRipple
       id={props.id}
+      sx={{
+        '&:hover': {
+          backgroundColor: 'transparent',
+          color: 'primary.main',
+        },
+      }}
       onClick={props.onClick && props.onClick}
     >
       {props.icon}

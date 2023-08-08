@@ -72,7 +72,7 @@ const Input = (props: InputProps) => {
 
     setSxColors({
       '& .MuiOutlinedInput-root': {
-        backgroundColor: 'background.paper',
+        backgroundColor: 'bg.form',
       },
       '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
         borderColor: color ? color : 'transparent',
@@ -107,8 +107,8 @@ const Input = (props: InputProps) => {
               : lightTheme.palette.background.paper
           } 0.1%, ${
             theme === 'dark'
-              ? darkTheme.palette.background.paper
-              : lightTheme.palette.background.paper
+              ? darkTheme.palette.bg.form
+              : lightTheme.palette.bg.form
           } 50%)`,
           opacity: label ? 1 : 0,
         }}

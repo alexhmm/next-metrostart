@@ -5,8 +5,11 @@ import { useTheme } from 'next-themes';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 // Types
-import { HeaderMenuAction } from '../types/shared.types';
-import { MenuElement, MenuItem } from '../types/ui.types';
+import {
+  HeaderMenuAction,
+  MenuElement,
+  MenuItem,
+} from '@/src/types/shared.types';
 
 const useShared = () => {
   const { theme } = useTheme();

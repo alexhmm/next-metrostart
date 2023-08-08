@@ -12,6 +12,7 @@ declare module '@mui/material/styles' {
   interface Palette {
     bg: {
       dialog: string;
+      form: string;
       header: string;
       menu: string;
     };
@@ -20,6 +21,7 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     bg: {
       dialog: string;
+      form: string;
       header: string;
       menu: string;
     };
@@ -27,12 +29,14 @@ declare module '@mui/material/styles' {
 
   interface PaletteColor {
     dialog?: string;
+    form?: string;
     header?: string;
     menu?: string;
   }
 
   interface SimplePaletteColorOptions {
     dialog?: string;
+    form?: string;
     header?: string;
     menu?: string;
   }
@@ -65,6 +69,7 @@ export const darkTheme = createTheme({
     },
     bg: {
       dialog: '#232323',
+      form: '#1f1f1f',
       header: '#1a1a1a',
       menu: '#232323',
     },
@@ -87,8 +92,9 @@ export const lightTheme = createTheme({
     },
     bg: {
       dialog: '#ffffff',
+      form: '#f1f1f1',
       header: '#f6f6f6',
-      menu: '#f9f9f9',
+      menu: '#f6f6f6',
     },
     error,
     mode: 'light',

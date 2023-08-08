@@ -5,7 +5,7 @@ import { Box, Popover, PopoverOrigin } from '@mui/material';
 import styles from './Menu.module.scss';
 
 // Types
-import { MenuItem as IMenuItem, MenuElement } from '../../types/ui.types';
+import { MenuItem as IMenuItem, MenuElement } from '@/src/types/shared.types';
 
 // UI
 import MenuCheckbox from './MenuCheckbox';

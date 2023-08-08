@@ -136,9 +136,9 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
         <div className={styles['collection-content-header-title']}>
           <Menu
             items={getCollectionActions()}
-            onAction={onCollectionAction}
             title={collection?.name ?? t('collection:title')}
-            variant="h5"
+            variant="h6"
+            onAction={onCollectionAction}
           />
         </div>
         {collection?.description && (
