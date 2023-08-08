@@ -1,7 +1,8 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useFilePicker } from 'use-file-picker';
 
 // Hooks
@@ -32,6 +33,7 @@ const CollectionList: FC = () => {
     accept: '.json',
     multiple: false,
   });
+  const router = useRouter();
   const { t } = useTranslation();
 
   // Refs
@@ -104,6 +106,8 @@ const CollectionList: FC = () => {
           // Update store
           setCollection(collectionImport);
           setCollections(collectionsStorage);
+
+          router.push(`/collections/${collectionImport.id}`);
         }
       }
     }

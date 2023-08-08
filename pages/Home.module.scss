@@ -20,4 +20,7 @@
       }
     }
   }
+  &-progress {
+    @apply fixed flex bottom-4 items-center justify-center p-2 right-4 rounded-full shadow-xl lg:bottom-8 lg:right-8;
+  }
 }

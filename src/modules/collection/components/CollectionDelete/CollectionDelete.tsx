@@ -1,6 +1,7 @@
 import { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Typography } from '@mui/material';
@@ -32,6 +33,7 @@ type CollectionDeleteProps = {
 
 const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
   const { createCollection } = useCollection();
+  const router = useRouter();
   const { t } = useTranslation();
 
   // Collection store state
@@ -80,6 +82,7 @@ const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
           const newCollection = createCollection();
           setCollection(newCollection);
           collectionsStorage.push(newCollection);
+          router.replace(`/collections/${newCollection.id}`);
         }
 
         // Update LocalStorage

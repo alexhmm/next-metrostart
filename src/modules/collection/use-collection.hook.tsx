@@ -26,7 +26,7 @@ const useCollection = () => {
     return {
       id,
       links: [],
-      name: `${t('collection:title')} ${id}`,
+      name: t('collection:title'),
     };
   };
 

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // Component
@@ -19,6 +20,8 @@ import { Collection } from '@/src/modules/collection/collection.types';
 export default function Collection(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
+  const router = useRouter();
+
   // Collection store staate
   const [collection, setCollection] = useCollectionStore((state) => [
     state.collection,
@@ -35,9 +38,20 @@ export default function Collection(
       const collections: Collection[] = JSON.parse(
         localStorage.getItem('collections') ?? '[]'
       );
-      setCollection(
-        collections.find((collection) => collection.id === props.id)
+
+      const matchedCollection = collections.find(
+        (collection) => collection.id === props.id
       );
+
+      // Set active collection id on match
+      if (matchedCollection) {
+        localStorage.setItem('activeCollection', matchedCollection.id);
+      } else {
+        localStorage.removeItem('activeCollection');
+        router.replace('/');
+      }
+
+      setCollection(matchedCollection);
     }
 
     return () => {

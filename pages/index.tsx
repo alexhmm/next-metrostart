@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Box, CircularProgress } from '@mui/material';
 
-// Components
-import CollectionContent from '@/src/modules/collection/components/CollectionContent/CollectionContent';
+// Hooks
+import useCollection from '@/src/modules/collection/use-collection.hook';
 
 // Stores
 import useCollectionStore from '@/src/modules/collection/collection.store';
@@ -16,14 +17,25 @@ import styles from './Home.module.scss';
 // Types
 import { Collection } from '@/src/modules/collection/collection.types';
 
+// Utils
+import {
+  getCollections,
+  updateCollections,
+} from '@/src/modules/collection/collection.utils';
+
 export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
+  const { createCollection } = useCollection();
+  const router = useRouter();
+
   // Collection store state
-  const [collection, setCollection] = useCollectionStore((state) => [
-    state.collection,
-    state.setCollection,
+  const [setCollections] = useCollectionStore((state) => [
+    state.setCollections,
   ]);
+
+  // Page state
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // ####### //
   // EFFECTS //
@@ -31,15 +43,31 @@ export default function Home(
 
   // Set collection on mount
   useEffect(() => {
-    const collections: Collection[] = JSON.parse(
-      localStorage.getItem('collections') ?? '[]'
-    );
-    collections && collections.length > 0 && setCollection(collections[0]);
+    const collectionsStorage: Collection[] = getCollections();
+    if (collectionsStorage && collectionsStorage.length > 0) {
+      const activeCollection: string | undefined =
+        localStorage.getItem('activeCollection') ?? undefined;
 
-    return () => {
-      setCollection(undefined);
-    };
-    // eslint-disable-next-line
+      // Navigate to active collection
+      if (activeCollection) {
+        router.replace(`/collections/${activeCollection}`);
+      } else {
+        router.replace(`/collections/${collectionsStorage[0].id}`);
+      }
+    } else {
+      // Set first collection for view or create new one if none exists
+      const newCollection = createCollection();
+      collectionsStorage.push(newCollection);
+
+      // Update LocalStorage
+      updateCollections(collectionsStorage);
+
+      // Update store
+      setCollections(collectionsStorage);
+
+      router.replace(`/collections/${newCollection.id}`);
+    }
+    setIsLoading(false);
   }, []);
 
   return (
@@ -48,9 +76,17 @@ export default function Home(
         <title>Metrostart • Home</title>
       </Head>
       <div className={styles['home']}>
-        {collection && <CollectionContent collection={collection} />}
-        {collection && (
-          <Link href={`/collections/${collection.id}`}>{collection.name}</Link>
+        {isLoading && (
+          <Box
+            className={styles['home-progress']}
+            sx={{ backgroundColor: 'text.primary' }}
+          >
+            <CircularProgress
+              className={styles['home-progress-circular']}
+              color="primary"
+              size="1.5rem"
+            />
+          </Box>
         )}
       </div>
     </>
