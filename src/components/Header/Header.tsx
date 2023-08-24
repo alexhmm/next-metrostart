@@ -20,7 +20,7 @@ import IconMenu from '@/src/ui/Menu/IconMenu';
 
 const Header: FC = () => {
   const { getHeaderMenuItems } = useShared();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   // Component state
   const [hasMounted, setHasMounted] = useState(false);
@@ -42,7 +42,7 @@ const Header: FC = () => {
   const onMenuAction = (action: HeaderMenuAction) => {
     switch (action) {
       case HeaderMenuAction.ToggleTheme:
-        setTheme(theme === 'light' ? 'dark' : 'light');
+        setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
         break;
       default:
         break;

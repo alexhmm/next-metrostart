@@ -87,8 +87,6 @@ const CollectionList: FC = () => {
   // Import collection by json file
   useEffect(() => {
     if (filesContent && filesContent.length > 0) {
-      console.log(JSON.parse(filesContent[0].content));
-
       const collectionImport: Collection = JSON.parse(filesContent[0].content);
       if (
         collectionImport.id &&

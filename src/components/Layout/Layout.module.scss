@@ -1,6 +1,6 @@
 .layout {
   @apply flex flex-col w-full lg:px-8;
   &-main {
-    @apply min-h-[calc(100vh-64px-192px)];
+    @apply min-h-[calc(100vh-64px-192px)] lg:min-h-[calc(100vh-64px-1px-192px-64px)];
   }
 }

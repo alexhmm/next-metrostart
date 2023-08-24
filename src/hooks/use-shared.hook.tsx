@@ -12,7 +12,7 @@ import {
 } from '@/src/types/shared.types';
 
 const useShared = () => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const { t } = useTranslation();
 
   /**
@@ -23,7 +23,7 @@ const useShared = () => {
     return [
       {
         action: HeaderMenuAction.ToggleTheme,
-        checked: theme === 'dark' ? true : false,
+        checked: resolvedTheme === 'dark' ? true : false,
         elem: MenuElement.Checkbox,
         icon: <DarkModeIcon />,
         title: t('header:menu.dark_theme'),

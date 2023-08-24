@@ -1,9 +1,6 @@
 import { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Typography } from '@mui/material';
 
 // Hooks
@@ -16,7 +13,6 @@ import useCollectionStore from '../../collection.store';
 import styles from './CollectionDelete.module.scss';
 
 // Types
-import { CollectionPostPatchRequest } from '../../collection.types';
 import { ResultState } from '@/src/types/shared.types';
 
 // UI
@@ -41,22 +37,6 @@ const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
     state.setCollection,
     state.setCollections,
   ]);
-
-  // React hook form validation schema
-  // #todo: Name validation
-  const collectionDeleteSchema = z.object({
-    name: z.string().min(1, {
-      message: t('collection:name.error').toString(),
-    }),
-  });
-
-  const {
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<CollectionPostPatchRequest>({
-    resolver: zodResolver(collectionDeleteSchema),
-  });
 
   // ######### //
   // CALLBACKS //
@@ -98,31 +78,22 @@ const CollectionDelete: FC<CollectionDeleteProps> = (props) => {
   }, [props]);
 
   return (
-    <form
-      className={styles['collection-delete']}
-      onSubmit={handleSubmit(onDelete)}
-    >
+    <div className={styles['collection-delete']}>
       <Typography
         className={styles['collection-delete-text']}
         color="text.secondary"
       >
         {t('collection:delete.text')}
       </Typography>
-      <Input
-        autoFocus
-        classes={styles['collection-delete-name']}
-        label={t('collection:name.label')}
-        message={errors?.name && errors.name.message?.toString()}
-        placeholder={t('collection:name.placeholder').toString()}
-        register={register('name')}
-        state={errors?.name && ResultState.Error}
-      />
-      <div className={styles['collection-delete-submit']}>
-        <TextButtonOutlined type="submit">
+      <div className={styles['collection-delete-actions']}>
+        <TextButtonOutlined onClick={props.onClose}>
+          {t('collection:delete.cancel')}
+        </TextButtonOutlined>
+        <TextButtonOutlined onClick={onDelete}>
           {t('collection:delete.title')}
         </TextButtonOutlined>
       </div>
-    </form>
+    </div>
   );
 };
 

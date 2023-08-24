@@ -1,5 +1,8 @@
 .dialog {
   @apply rounded-none;
+  &-actions {
+    @apply p-4;
+  }
   &-title {
     @apply flex items-center justify-between p-4;
     &-close {

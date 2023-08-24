@@ -25,6 +25,8 @@ type IconMenuProps = {
   tooltip?: string;
   transformOrigin?: PopoverOrigin;
   onAction: (action: any) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
 };
 
 const IconMenu = (props: IconMenuProps) => {
@@ -38,6 +40,7 @@ const IconMenu = (props: IconMenuProps) => {
     event.preventDefault();
     event.stopPropagation();
     setAnchorMenu(event.currentTarget);
+    props.onOpen && props.onOpen();
   }, []);
 
   /**
@@ -45,6 +48,7 @@ const IconMenu = (props: IconMenuProps) => {
    */
   const onClose = useCallback(() => {
     setAnchorMenu(null);
+    props.onClose && props.onClose();
   }, []);
 
   return (

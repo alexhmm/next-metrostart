@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 
 // Hooks
@@ -27,6 +27,9 @@ type LinkButtonProps = {
 
 const LinkButton: FC<LinkButtonProps> = (props) => {
   const { getLinkMenuActions } = useCollection();
+
+  // Component state
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   // ######### //
   // CALLBACKS //
@@ -60,7 +63,7 @@ const LinkButton: FC<LinkButtonProps> = (props) => {
         backgroundColor: 'background.paper',
         '& #menu': {
           display: props.type === CrudAction.Create ? 'none' : 'flex',
-          opacity: 0,
+          opacity: menuOpen ? 1 : 0,
         },
         ':hover': {
           backgroundColor: 'action.hover',
@@ -76,6 +79,8 @@ const LinkButton: FC<LinkButtonProps> = (props) => {
         id="menu"
         items={getLinkMenuActions()}
         onAction={onMenuAction}
+        onClose={() => setMenuOpen(false)}
+        onOpen={() => setMenuOpen(true)}
       />
       {props.link && props.link.icon && (
         <>

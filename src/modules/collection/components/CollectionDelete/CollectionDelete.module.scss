@@ -3,8 +3,8 @@
   &-name {
     @apply mb-4;
   }
-  &-submit {
-    @apply flex justify-end;
+  &-actions {
+    @apply flex gap-4 justify-end;
   }
   &-text {
     @apply mb-2;

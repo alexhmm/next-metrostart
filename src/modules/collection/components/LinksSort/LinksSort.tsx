@@ -1,5 +1,4 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DragDropContext,
   Droppable,
@@ -15,12 +14,6 @@ import styles from './LinksSort.module.scss';
 
 // Types
 import { Link } from '../../collection.types';
-
-// UI
-import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
-
-// Utils
-import { updateCollection } from '../../collection.utils';
 
 type LinkSortableItemProps = {
   link: Link;
@@ -52,15 +45,12 @@ const LinkSortableItem: FC<LinkSortableItemProps> = (props) => {
 type LinksSortProps = {
   id: string;
   onClose: () => void;
+  onSetLinks: (links: Link[]) => void;
 };
 
 const LinksSort: FC<LinksSortProps> = (props) => {
-  const { t } = useTranslation();
-
   // Collection store state
-  const [collection, setCollection, setCollections] = useCollectionStore(
-    (state) => [state.collection, state.setCollection, state.setCollections]
-  );
+  const [collection] = useCollectionStore((state) => [state.collection]);
 
   const [links, setLinks] = useState<Link[]>([]);
 
@@ -80,29 +70,18 @@ const LinksSort: FC<LinksSortProps> = (props) => {
         return;
       }
 
-      // reorder using index of source and destination.
+      // Reorder using index of source and destination
       const updatedLinks = [...links];
       const [removed] = updatedLinks.splice(result.source.index, 1);
-      // put the removed one into destination.
+      // Put the removed link into destination
       updatedLinks.splice(result.destination.index, 0, removed);
 
       setLinks(updatedLinks);
+      props.onSetLinks(updatedLinks);
     },
     // eslint-disable-next-line
     [links]
   );
-
-  /**
-   * Handler to update link sorting.
-   */
-  const onSubmit = useCallback(() => {
-    if (collection) {
-      setCollection({ ...collection, links });
-      setCollections(updateCollection({ ...collection, links }));
-      props.onClose();
-    }
-    // eslint-disable-next-line
-  }, [links]);
 
   return (
     <div className={styles['links-sort']}>
@@ -126,11 +105,6 @@ const LinksSort: FC<LinksSortProps> = (props) => {
           )}
         </Droppable>
       </DragDropContext>
-      <div className={styles['links-sort-submit']}>
-        <TextButtonOutlined onClick={onSubmit}>
-          {t('collection:link.sort.submit')}
-        </TextButtonOutlined>
-      </div>
     </div>
   );
 };

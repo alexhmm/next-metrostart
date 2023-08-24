@@ -19,7 +19,7 @@ import useCollectionStore from '@/src/modules/collection/collection.store';
 import styles from './CollectionContent.module.scss';
 
 // Types
-import { CrudAction } from '@/src/types/shared.types';
+import { CrudAction, DialogActionType } from '@/src/types/shared.types';
 import {
   Collection,
   CollectionAction,
@@ -34,6 +34,7 @@ import Menu from '@/src/ui/Menu/Menu';
 import {
   exportCollection,
   getCollections,
+  updateCollection,
   updateCollections,
 } from '../../collection.utils';
 
@@ -58,13 +59,15 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
   );
   const [linkCreate, setLinkCreate] = useState<boolean>(false);
   const [linkEdit, setLinkEdit] = useState<ILink | undefined>(undefined);
+  const [updatedLinks, setUpdatedLinks] = useState<ILink[]>([]);
 
   // Collection store state
-  const [collectionCreate, setCollection, setCollectionCreate] =
+  const [collectionCreate, setCollection, setCollectionCreate, setCollections] =
     useCollectionStore((state) => [
       state.collectionCreate,
       state.setCollection,
       state.setCollectionCreate,
+      state.setCollections,
     ]);
 
   // ######### //
@@ -123,6 +126,18 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
     }
     // eslint-disable-next-line
   }, []);
+
+  /**
+   * Handler to update link sorting.
+   */
+  const onLinksSortSubmit = useCallback(() => {
+    if (updatedLinks.length > 0) {
+      setCollection({ ...collection, links: updatedLinks });
+      setCollections(updateCollection({ ...collection, links: updatedLinks }));
+    }
+    setUpdatedLinks([]);
+    setCollectionSort(undefined);
+  }, [collection, updatedLinks]);
 
   return (
     <Box
@@ -200,14 +215,23 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
         )}
       </Dialog>
       <Dialog
+        actions={[
+          {
+            disabled: updatedLinks.length < 1,
+            title: t('collection:link.sort.submit').toString(),
+            type: DialogActionType.Submit,
+          },
+        ]}
         open={!!collectionSort}
         title={t('collection:link.sort.title').toString()}
         onClose={() => setCollectionSort(undefined)}
+        onSubmit={onLinksSortSubmit}
       >
         {collection && collection.id && (
           <LinksSort
             id={collection.id}
             onClose={() => setCollectionSort(undefined)}
+            onSetLinks={setUpdatedLinks}
           />
         )}
       </Dialog>

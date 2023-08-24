@@ -7,6 +7,11 @@ export enum CrudAction {
   Update = 'UPDATE',
 }
 
+export enum DialogActionType {
+  Cancel = 'CANCEL',
+  Submit = 'SUBMIT',
+}
+
 export enum HeaderMenuAction {
   ToggleTheme = 'TOGGLE_THEME',
 }
@@ -26,6 +31,12 @@ export enum ResultState {
   Info = 'INFO',
   Success = 'SUCCESS',
   Warning = 'WARNING',
+}
+
+export interface DialogAction {
+  disabled?: boolean;
+  title: string;
+  type: DialogActionType;
 }
 
 export interface DropdownItem {
