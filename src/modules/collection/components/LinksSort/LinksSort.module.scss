@@ -1,7 +1,7 @@
 .links-sort {
   @apply flex flex-col;
   &-list {
-    @apply flex flex-col gap-4;
+    @apply flex flex-col gap-2;
   }
   &-submit {
     @apply flex justify-end mt-4;
@@ -9,11 +9,17 @@
 }
 
 .link-sortable-item {
-  @apply cursor-pointer flex items-center;
-  &-image {
-    @apply aspect-square shrink-0 w-8;
+  @apply cursor-pointer duration-200 flex gap-4 items-center p-2 rounded-sm transition-colors;
+  &-content {
+    @apply flex gap-4 items-center;
+    &-image {
+      @apply aspect-square shrink-0 w-8;
+    }
+    &-name {
+      @apply grow truncate;
+    }
   }
-  &-name {
-    @apply grow ml-4 truncate;
+  &-indicator {
+    @apply flex h-8 items-center justify-center w-8;
   }
 }

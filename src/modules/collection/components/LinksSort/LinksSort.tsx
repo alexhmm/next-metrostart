@@ -1,10 +1,15 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DraggableProvided,
 } from '@hello-pangea/dnd';
+import { Box } from '@mui/material';
+
+// Icons
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 // Stores
 import useCollectionStore from '../../collection.store';
@@ -21,24 +26,39 @@ type LinkSortableItemProps = {
 };
 
 const LinkSortableItem: FC<LinkSortableItemProps> = (props) => {
+  const { resolvedTheme } = useTheme();
+
   return (
-    <div
+    <Box
+      bgcolor={
+        resolvedTheme === 'dark' ? 'background.paper' : 'background.default'
+      }
       className={styles['link-sortable-item']}
       ref={props.provided.innerRef}
+      sx={{
+        ':hover': {
+          backgroundColor: 'action.hover',
+        },
+      }}
       {...props.provided.draggableProps}
       {...props.provided.dragHandleProps}
     >
-      {props.link.icon && (
-        <img
-          alt={props.link.name}
-          className={styles['link-sortable-item-image']}
-          src={props.link.icon}
-        />
-      )}
-      <span className={styles['link-sortable-item-name']}>
-        {props.link.name}
-      </span>
-    </div>
+      <div className={styles['link-sortable-item-indicator']}>
+        <DragIndicatorIcon />
+      </div>
+      <div className={styles['link-sortable-item-content']}>
+        {props.link.icon && (
+          <img
+            alt={props.link.name}
+            className={styles['link-sortable-item-content-image']}
+            src={props.link.icon}
+          />
+        )}
+        <span className={styles['link-sortable-item-content-name']}>
+          {props.link.name}
+        </span>
+      </div>
+    </Box>
   );
 };
 
