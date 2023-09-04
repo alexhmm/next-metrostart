@@ -1,0 +1,19 @@
+.about {
+  @apply flex flex-col p-4 lg:p-8;
+  &-container {
+    @apply max-w-[1440px] m-auto;
+  }
+  &-content {
+    @apply gap-4 grid grid-cols-1 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3;
+  }
+  &-title {
+    @apply pb-4;
+  }
+}
+
+.about-section {
+  @apply box-border w-full;
+  &-content {
+    @apply pt-2;
+  }
+}

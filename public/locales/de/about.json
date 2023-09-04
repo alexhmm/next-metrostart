@@ -1,0 +1,20 @@
+{
+  "data": {
+    "content1": "Für die Funktionalität der Seite werden Daten über alle angelegten Sammlungen und Verknüpfungen lokal in deinem Browser gespeichert.",
+    "content2": "Eine geräteübergreifende Verwaltung deiner Sammlungen ist für die Zukunft geplant. Bis dahin ist es möglich einzelne Sammlungen zu exportieren und zu importieren.",
+    "title": "Welche Daten werden gespeichert?"
+  },
+  "functionality": {
+    "content1": "Zunächst muss eine neue Sammlung erstellt werden. Der Name der neuen Sammlung ist verpflichtend. Eine Beschreibung ist optional.",
+    "content2": "Danach ist es möglich einzelne Verknüpfungen zu der neu angelegten Sammlung hinzuzufügen. Dazu wird die URL der Webseite benötigt. Auch hier ist eine Beschreibung optional. Der neu erstellten Verknüpfung wird anhand der URL automatisch das passende Icon zugeordnet.",
+    "content3": "Es ist möglich die Verknüpfungen der Sammlung mit Drag and Drop zu sortieren.",
+    "content4": "Sammlungen und Verknüpfungen können außerdem bearbeitet und gelöscht werden.",
+    "title": "Wie funktioniert Metrostart?"
+  },
+  "title": "Über Metrostart",
+  "what": {
+    "content1": "Metrostart ist eine Webseite zum einfachen Organisieren von Verknüpfungen.",
+    "content2": "Es dient als eine schnelle und greifbare Alternative zu den browserüblichen Lesezeichen.",
+    "title": "Was ist Metrostart?"
+  }
+}

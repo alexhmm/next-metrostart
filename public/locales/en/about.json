@@ -1,0 +1,20 @@
+{
+  "data": {
+    "content1": "To ensure the functionality of this website all created collections and links are saved locally in your browser.",
+    "content2": "A cross device management of your collections is planned for the future. Right now it is possible to export and import single collections.",
+    "title": "What data is stored?"
+  },
+  "functionality": {
+    "content1": "At first you need to create a new collection. The name of the new collection is required. A description is optional.",
+    "content2": "Afterwards it's possible to add links to the new created collection. The URL of the website is required. Again, a description is optional. A matching icon will be assigned to the new created link automatically.",
+    "content3": "It's possible to sort links with drag and drop.",
+    "content4": "Collections and links also can be edited and deleted.",
+    "title": "How does Metrostart work?"
+  },
+  "title": "About Metrostart",
+  "what": {
+    "content1": "Metrostart is a website to organize links easyly.",
+    "content2": "It serves as a faster and more tangible alternative to usual browser bookmarks.",
+    "title": "What is Metrostart?"
+  }
+}
