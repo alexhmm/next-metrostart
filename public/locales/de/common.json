@@ -1,4 +1,7 @@
 {
+  "menu": {
+    "dark_theme": "Dunkles Design"
+  },
   "pages": {
     "about": "Über Metrostart",
     "imprint": "Impressum"

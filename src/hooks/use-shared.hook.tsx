@@ -26,7 +26,7 @@ const useShared = () => {
         checked: resolvedTheme === 'dark' ? true : false,
         elem: MenuElement.Checkbox,
         icon: <DarkModeIcon />,
-        title: t('header:menu.dark_theme'),
+        title: t('common:menu.dark_theme'),
       },
     ];
   };

@@ -1,4 +1,7 @@
 {
+  "menu": {
+    "dark_theme": "Dark Theme"
+  },
   "pages": {
     "about": "About Metrostart",
     "imprint": "Imprint"

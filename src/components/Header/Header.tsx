@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material';
 import useShared from '@/src/hooks/use-shared.hook';
 
 // Icons
-import SettingsIcon from '@mui/icons-material/Settings';
+import MenuIcon from '@mui/icons-material/Menu';
 
 // Styles
 import styles from './Header.module.scss';
@@ -65,7 +65,7 @@ const Header: FC = () => {
       </Link>
       <IconMenu
         items={getHeaderMenuItems()}
-        icon={<SettingsIcon />}
+        icon={<MenuIcon />}
         onAction={onMenuAction}
       />
     </Box>
