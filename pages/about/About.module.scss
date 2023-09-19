@@ -4,10 +4,10 @@
     @apply max-w-[1440px] m-auto;
   }
   &-content {
-    @apply gap-4 grid grid-cols-1 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3;
+    @apply gap-4 grid grid-cols-1 text-sm sm:gap-8 sm:grid-cols-2 lg:grid-cols-3;
   }
   &-title {
-    @apply pb-4;
+    @apply mb-4 lg:mb-8;
   }
 }
 

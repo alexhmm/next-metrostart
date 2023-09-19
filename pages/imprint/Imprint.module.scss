@@ -1,0 +1,32 @@
+.imprint {
+  @apply flex flex-col p-4 lg:p-8;
+  &-container {
+    @apply w-full 2xl:w-[1440px];
+    margin: 0 auto;
+  }
+  &-content {
+    @apply flex flex-col w-full;
+    &-contact {
+      @apply flex flex-col gap-2 grow w-fit sm:flex-row sm:gap-4;
+      &-email {
+        @apply flex items-center;
+        &-icon {
+          @apply h-4 ml-1 w-4;
+        }
+      }
+    }
+  }
+  &-title {
+    @apply mb-4 lg:mb-8;
+  }
+}
+
+.imprint-section {
+  @apply flex flex-col gap-2 text-sm md:flex-row md:gap-4;
+  &-content {
+    @apply flex flex-col gap-0.5;
+  }
+  &-title {
+    @apply font-semibold md:w-72;
+  }
+}
