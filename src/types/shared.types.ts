@@ -51,6 +51,5 @@ export interface MenuItem {
   disabled?: boolean;
   icon?: ReactNode;
   title: string;
-  tooltip?: string;
   undefined?: boolean;
 }

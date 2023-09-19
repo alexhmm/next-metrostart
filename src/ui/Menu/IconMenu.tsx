@@ -1,5 +1,5 @@
 import { ReactNode, memo, useCallback, useState } from 'react';
-import { PopoverOrigin, SxProps, Theme, Tooltip } from '@mui/material';
+import { PopoverOrigin, SxProps, Theme } from '@mui/material';
 
 // Icons
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -22,7 +22,6 @@ type IconMenuProps = {
   items: IMenuItem[];
   padding?: string | undefined;
   sx?: SxProps<Theme>;
-  tooltip?: string;
   transformOrigin?: PopoverOrigin;
   onAction: (action: any) => void;
   onOpen?: () => void;
@@ -53,16 +52,14 @@ const IconMenu = (props: IconMenuProps) => {
 
   return (
     <>
-      <Tooltip placement="top" title={props.tooltip}>
-        <IconButton
-          className={props.className && props.className}
-          color={props.color}
-          icon={props.icon ?? <MoreVertIcon />}
-          iconSize={props.iconSize}
-          id={props.id}
-          onClick={onClick}
-        />
-      </Tooltip>
+      <IconButton
+        className={props.className && props.className}
+        color={props.color}
+        icon={props.icon ?? <MoreVertIcon />}
+        iconSize={props.iconSize}
+        id={props.id}
+        onClick={onClick}
+      />
       <MenuPopover
         anchorMenu={anchorMenu}
         items={props.items}

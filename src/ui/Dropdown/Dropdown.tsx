@@ -1,6 +1,5 @@
 import { ReactNode, memo, useCallback, useEffect, useState } from 'react';
-import { Box, Button, Popover, PopoverOrigin, Typography } from '@mui/material';
-import clsx from 'clsx';
+import { Box, Button, Popover, PopoverOrigin } from '@mui/material';
 
 // Icons
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -95,14 +94,7 @@ const Dropdown = (props: DropdownProps) => {
         }}
         onClick={onClick}
       >
-        <Typography
-          className={clsx(
-            styles['dropdown-title'],
-            props.titleClassName && props.titleClassName
-          )}
-        >
-          {title}
-        </Typography>
+        {title}
         {anchorMenu ? (
           <ArrowDropUpIcon
             className={styles['dropdown-icon']}

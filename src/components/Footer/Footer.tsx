@@ -39,11 +39,15 @@ const DropdownLanguageItem: FC<DropdownLanguageItemProps> = (props) => {
   return (
     <div className={styles['dropdown-language-item']}>
       <img
-        alt={props.locale}
+        alt={
+          props.locale === Language.English
+            ? t('common:settings.language.en').toString()
+            : t('common:settings.language.de').toString()
+        }
         className={styles['dropdown-language-item-image']}
         src={imgSrc}
       />
-      <span className={styles['dropdown-language-item-title']}>{title}</span>
+      <div className={styles['dropdown-language-item-title']}>{title}</div>
     </div>
   );
 };
