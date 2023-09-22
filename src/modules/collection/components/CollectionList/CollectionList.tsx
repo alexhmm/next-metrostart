@@ -2,7 +2,13 @@ import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { Box, Button } from '@mui/material';
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DraggableProvided,
+} from '@hello-pangea/dnd';
+import { Box } from '@mui/material';
 import { useFilePicker } from 'use-file-picker';
 
 // Hooks
@@ -26,6 +32,35 @@ import {
   getCollections,
   updateCollections,
 } from '../../collection.utils';
+
+type CollectionListLinkProps = {
+  id: string;
+  name: string;
+  provided: DraggableProvided;
+};
+
+const CollectionListLink: FC<CollectionListLinkProps> = (props) => {
+  return (
+    <Link
+      className={styles['collection-list-item']}
+      href={`/collections/${props.id}`}
+      ref={props.provided.innerRef}
+      {...props.provided.draggableProps}
+      {...props.provided.dragHandleProps}
+    >
+      <Box
+        className={styles['collection-list-item-content']}
+        sx={{
+          ':hover': {
+            backgroundColor: 'action.hover',
+          },
+        }}
+      >
+        {props.name}
+      </Box>
+    </Link>
+  );
+};
 
 const CollectionList: FC = () => {
   const { getCollectionListActions } = useCollection();
@@ -116,6 +151,29 @@ const CollectionList: FC = () => {
   // ######### //
 
   /**
+   * Handler on drag end.
+   * @param result Result
+   */
+  const onDragEnd = useCallback((result: any) => {
+    // Dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    // Reorder using index of source and destination
+    const updatedCollections = getCollections();
+    const [removed] = updatedCollections.splice(result.source.index, 1);
+    // Put the removed collection into destination
+    updatedCollections.splice(result.destination.index, 0, removed);
+
+    // Update LocalStorage
+    updateCollections(updatedCollections);
+
+    // Update store
+    setCollections(updatedCollections);
+  }, []);
+
+  /**
    * Handler to link menu action.
    * @param action CrudAction
    */
@@ -147,22 +205,34 @@ const CollectionList: FC = () => {
             variant="h6"
           />
         </div>
-        {collections.map((collection) => (
-          <Link
-            className={styles['collection-list-item']}
-            key={collection.id}
-            href={`/collections/${collection.id}`}
-          >
-            <Button
-              className={styles['collection-list-item-button']}
-              color="inherit"
-            >
-              <div className={styles['collection-list-item-button-text']}>
-                {collection.name}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided) => (
+              <div
+                className={styles['collection-list-content-sort']}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {collections.map((collection, index) => (
+                  <Draggable
+                    key={collection.id}
+                    draggableId={collection.id}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <CollectionListLink
+                        id={collection.id}
+                        name={collection.name}
+                        provided={provided}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
               </div>
-            </Button>
-          </Link>
-        ))}
+            )}
+          </Droppable>
+        </DragDropContext>
       </Box>
     </div>
   );
