@@ -1,6 +1,7 @@
 import { FC, memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
@@ -32,6 +33,7 @@ type CollectionCreateEditProps = {
 };
 
 const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
+  const router = useRouter();
   const { t } = useTranslation();
 
   // Collection store state
@@ -102,6 +104,7 @@ const LinkItemCreateEdit: FC<CollectionCreateEditProps> = (props) => {
           // Update store
           setCollection(updatedCollection);
           setCollections(collectionsStorage);
+          !props.id && router.replace(`/collections/${updatedCollection.id}`);
         }
         props.onClose();
       }

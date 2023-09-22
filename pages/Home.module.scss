@@ -1,26 +1,11 @@
 .home {
-  @apply flex flex-col;
-  &-collection {
-    &-content {
-      @apply gap-2 grid grid-cols-3 sm:gap-3 sm:grid-cols-4 md:grid-cols-5 lg:gap-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-8 4xl:grid-cols-10;
-    }
-    &-header {
-      @apply flex flex-col mb-2 lg:mb-4;
-      &-description {
-        @apply text-sm;
-      }
-      &-title {
-        @apply flex items-center justify-between mb-1 lg:justify-start lg:mb-2;
-        &-menu {
-          @apply ml-2 shrink-0 lg:ml-4;
-        }
-        &-text {
-          @apply truncate;
-        }
-      }
-    }
-  }
+  @apply flex flex-col p-4 lg:p-8;
   &-progress {
     @apply fixed flex bottom-4 items-center justify-center p-2 right-4 rounded-full shadow-xl lg:bottom-8 lg:right-8;
+  }
+  &-start {
+    &-button {
+      @apply w-fit;
+    }
   }
 }

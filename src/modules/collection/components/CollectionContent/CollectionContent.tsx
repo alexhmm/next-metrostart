@@ -210,6 +210,7 @@ const CollectionContent: FC<CollectionContentProps> = (props) => {
         {collection && collection.id && (
           <CollectionDelete
             id={collection.id}
+            name={collection.name}
             onClose={() => setCollectionDelete(undefined)}
           />
         )}

@@ -8,7 +8,7 @@
     "title_edit": "Sammlung bearbeiten"
   },
   "delete": {
-    "text": "Tippe den Namen ein um die Sammlung zu löschen.",
+    "text": "Möchtest du die Sammlung {{name}} wirklich löschen?",
     "title": "Sammlung löschen"
   },
   "export": "Sammlung exportieren",

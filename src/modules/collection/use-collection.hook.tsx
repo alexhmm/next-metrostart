@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { v4 as uuidv4 } from 'uuid';
 
 // Icons
 import AddIcon from '@mui/icons-material/Add';
@@ -15,20 +14,6 @@ import { CrudAction, MenuItem } from '@/src/types/shared.types';
 
 const useCollection = () => {
   const { t } = useTranslation();
-
-  /**
-   * Create empty collection item.
-   * @returns Empty collection
-   */
-  const createCollection = () => {
-    const id = uuidv4();
-
-    return {
-      id,
-      links: [],
-      name: t('collection:title'),
-    };
-  };
 
   /**
    * Get collection actions.
@@ -104,7 +89,6 @@ const useCollection = () => {
   };
 
   return {
-    createCollection,
     getCollectionActions,
     getCollectionListActions,
     getLinkMenuActions,

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Box, CircularProgress } from '@mui/material';
-
-// Hooks
-import useCollection from '@/src/modules/collection/use-collection.hook';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 // Stores
 import useCollectionStore from '@/src/modules/collection/collection.store';
@@ -17,66 +15,68 @@ import styles from './Home.module.scss';
 // Types
 import { Collection } from '@/src/modules/collection/collection.types';
 
+// Components
+import CollectionCreateEdit from '@/src/modules/collection/components/CollectionCreateEdit/CollectionCreateEdit';
+
+// UI
+import Dialog from '@/src/ui/Dialog/Dialog';
+import TextButtonOutlined from '@/src/ui/TextButtonOutlined/TextButtonOutlined';
+
 // Utils
-import {
-  getCollections,
-  updateCollections,
-} from '@/src/modules/collection/collection.utils';
+import { getCollections } from '@/src/modules/collection/collection.utils';
 
 export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
-  const { createCollection } = useCollection();
   const router = useRouter();
+  const { t } = useTranslation();
 
   // Collection store state
-  const [setCollections] = useCollectionStore((state) => [
-    state.setCollections,
-  ]);
+  const [collectionCreate, setCollectionCreate] = useCollectionStore(
+    (state) => [state.collectionCreate, state.setCollectionCreate]
+  );
 
   // Page state
+  const [collectionsStorage, setCollectionsStorage] = useState<Collection[]>(
+    []
+  );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // ####### //
   // EFFECTS //
   // ####### //
 
-  // Set collection on mount
+  // Get collections from LocalStorage on mount
   useEffect(() => {
-    const collectionsStorage: Collection[] = getCollections();
+    setCollectionsStorage(getCollections());
+  }, []);
+
+  // Redirect to active colltion
+  useEffect(() => {
     if (collectionsStorage && collectionsStorage.length > 0) {
-      const activeCollection: string | undefined =
+      const activeCollectionId: string | undefined =
         localStorage.getItem('activeCollection') ?? undefined;
+      const activeCollection = collectionsStorage.find(
+        (collection) => collection.id === activeCollectionId
+      );
 
       // Navigate to active collection
       if (activeCollection) {
-        router.replace(`/collections/${activeCollection}`);
+        router.replace(`/collections/${activeCollectionId}`);
       } else {
         router.replace(`/collections/${collectionsStorage[0].id}`);
       }
-    } else {
-      // Set first collection for view or create new one if none exists
-      const newCollection = createCollection();
-      collectionsStorage.push(newCollection);
-
-      // Update LocalStorage
-      updateCollections(collectionsStorage);
-
-      // Update store
-      setCollections(collectionsStorage);
-
-      router.replace(`/collections/${newCollection.id}`);
     }
     setIsLoading(false);
-  }, []);
+  }, [collectionsStorage]);
 
   return (
     <>
       <Head>
-        <title>Metrostart • Home</title>
+        <title>Metrostart</title>
       </Head>
-      <div className={styles['home']}>
-        {isLoading && (
+      {isLoading && (
+        <div className={styles['home']}>
           <Box
             className={styles['home-progress']}
             sx={{ backgroundColor: 'text.primary' }}
@@ -87,14 +87,55 @@ export default function Home(
               size="1.5rem"
             />
           </Box>
-        )}
-      </div>
+        </div>
+      )}
+      {!isLoading && collectionsStorage.length < 1 && (
+        <Box
+          className={styles['home']}
+          sx={{ backgroundColor: 'background.paper' }}
+        >
+          <Typography className={styles['home-title']} variant="h5">
+            {t('home:title')}
+          </Typography>
+          <p>
+            {t('home:what.content1')} {t('home:what.content2')}{' '}
+          </p>
+          <p>{t('home:what.content3')}</p>
+          <TextButtonOutlined
+            className={styles['home-start-button']}
+            onClick={() => setCollectionCreate(true)}
+          >
+            {t('home:what.button')}
+          </TextButtonOutlined>
+          <Dialog
+            open={collectionCreate}
+            title={t(
+              collectionCreate
+                ? 'collection:create_edit.title_create'
+                : 'collection:create_edit.title_edit'
+            ).toString()}
+            onClose={() => {
+              setCollectionCreate(false);
+            }}
+          >
+            <CollectionCreateEdit
+              onClose={() => {
+                setCollectionCreate(false);
+              }}
+            />
+          </Dialog>
+        </Box>
+      )}
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common', 'collection'])),
+    ...(await serverSideTranslations(locale ?? 'en', [
+      'common',
+      'collection',
+      'home',
+    ])),
   },
 });

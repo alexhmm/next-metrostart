@@ -48,9 +48,15 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
     name: z.string().min(1, {
       message: t('collection:link.create_edit.name.error').toString(),
     }),
-    url: z.string().min(1, {
-      message: t('collection:link.create_edit.url.error').toString(),
-    }),
+    url: z
+      .string()
+      .refine(
+        (value) =>
+          /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
+            value
+          ),
+        t('collection:link.create_edit.url.error').toString()
+      ),
   });
 
   const {
@@ -70,7 +76,7 @@ const LinkItemCreateEdit: FC<LinkItemCreateEditProps> = (props) => {
    * @param body LinkItemPostPatchRequest
    */
   const onCreateEditLinkItem = useCallback(
-    (body: LinkItemPostPatchRequest) => {
+    async (body: LinkItemPostPatchRequest) => {
       if (typeof window !== 'undefined') {
         const collections = getCollections();
         const matchedCollection = collections.find(
