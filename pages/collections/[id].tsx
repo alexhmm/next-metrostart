@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // Component
 import CollectionContent from '@/src/modules/collection/components/CollectionContent/CollectionContent';
-import CollectionList from '@/src/modules/collection/components/CollectionList/CollectionList';
+import CollectionNav from '@/src/modules/collection/components/CollectionNav/CollectionNav';
 
 // Stores
 import useCollectionStore from '@/src/modules/collection/collection.store';
@@ -66,7 +66,7 @@ export default function Collection(
         <title>Metrostart • {collection?.name}</title>
       </Head>
       <div className={styles['collection']}>
-        <CollectionList />
+        <CollectionNav />
         {collection && <CollectionContent collection={collection} />}
       </div>
     </>

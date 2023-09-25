@@ -13,6 +13,7 @@ export enum DialogActionType {
 }
 
 export enum HeaderMenuAction {
+  CollectionList = 'COLLECTION_LIST',
   ToggleTheme = 'TOGGLE_THEME',
 }
 

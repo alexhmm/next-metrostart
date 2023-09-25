@@ -1,0 +1,20 @@
+.collection-nav {
+  @apply relative w-0 lg:w-80;
+}
+
+.collection-nav-content {
+  @apply flex-col hidden pb-2 shrink-0 w-80 lg:flex lg:pb-4 lg:relative lg:top-0;
+  &-header {
+    @apply flex bottom-0 gap-2 h-16 items-center justify-between px-8 sticky shrink-0;
+  }
+  &-sort {
+    @apply flex flex-col;
+  }
+}
+
+.collection-nav-item {
+  @apply cursor-pointer flex items-center w-full;
+  &-content {
+    @apply cursor-pointer flex font-semibold h-9 items-center justify-start px-8 transition-colors truncate w-full;
+  }
+}

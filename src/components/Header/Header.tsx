@@ -1,8 +1,13 @@
 import { FC, memo, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from 'next-themes';
 import { Box, Typography } from '@mui/material';
 
+// Components
+import CollectionList from '@/src/modules/collection/components/CollectionList/CollectionList';
+
 // Hooks
+import useBreakpoints from '@/src/hooks/use-breakpoints.hook';
 import useShared from '@/src/hooks/use-shared.hook';
 
 // Icons
@@ -16,13 +21,17 @@ import Link from 'next/link';
 import { HeaderMenuAction } from '@/src/types/shared.types';
 
 // UI
+import Dialog from '@/src/ui/Dialog/Dialog';
 import IconMenu from '@/src/ui/Menu/IconMenu';
 
 const Header: FC = () => {
+  const { lgDown } = useBreakpoints();
   const { getHeaderMenuItems } = useShared();
   const { resolvedTheme, setTheme } = useTheme();
+  const { t } = useTranslation();
 
   // Component state
+  const [collectionList, setCollectionList] = useState<boolean>(false);
   const [hasMounted, setHasMounted] = useState(false);
 
   // Error: Text content does not match server-rendered HTML.
@@ -41,6 +50,9 @@ const Header: FC = () => {
 
   const onMenuAction = (action: HeaderMenuAction) => {
     switch (action) {
+      case HeaderMenuAction.CollectionList:
+        setCollectionList(true);
+        break;
       case HeaderMenuAction.ToggleTheme:
         setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
         break;
@@ -68,6 +80,15 @@ const Header: FC = () => {
         icon={<MenuIcon />}
         onAction={onMenuAction}
       />
+      {lgDown && (
+        <Dialog
+          open={!!collectionList}
+          title={t('common:your_library').toString()}
+          onClose={() => setCollectionList(false)}
+        >
+          <CollectionList onClick={() => setCollectionList(false)} />
+        </Dialog>
+      )}
     </Box>
   );
 };
