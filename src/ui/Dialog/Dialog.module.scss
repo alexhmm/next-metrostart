@@ -13,6 +13,6 @@
     }
   }
   &-width {
-    @apply min-w-[300px] md:min-w-[560px] max-w-full;
+    @apply min-w-[300px] sm:min-w-[560px] max-w-full;
   }
 }

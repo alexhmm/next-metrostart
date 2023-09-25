@@ -7,6 +7,9 @@ import {
 } from '@mui/material';
 import clsx from 'clsx';
 
+// Hooks
+import useBreakpoints from '@/src/hooks/use-breakpoints.hook';
+
 // Icons
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -33,6 +36,8 @@ type DialogProps = {
 };
 
 const Dialog = (props: DialogProps) => {
+  const { smDown } = useBreakpoints();
+
   /**
    * Handler on dialog action.
    * @param action DialogActionType
@@ -52,6 +57,7 @@ const Dialog = (props: DialogProps) => {
 
   return (
     <MuiDialog
+      fullScreen={smDown && true}
       classes={{
         paper: clsx(
           styles['dialog'],

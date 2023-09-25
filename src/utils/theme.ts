@@ -42,6 +42,20 @@ declare module '@mui/material/styles' {
   }
 }
 
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 640,
+    md: 768,
+    lg: 1024,
+    xl: 1280,
+    '2xl': 1536,
+    '3xl': 1920,
+    '4xl': 2560,
+    '5xl': 3840,
+  },
+};
+
 const error = {
   main: red[400],
 };
@@ -60,6 +74,7 @@ const typography = {
 
 // Create a theme instance.
 export const darkTheme = createTheme({
+  breakpoints,
   palette: {
     background: {
       paper: '#1f1f1f',
@@ -82,6 +97,7 @@ export const darkTheme = createTheme({
 });
 
 export const lightTheme = createTheme({
+  breakpoints,
   palette: {
     background: {
       default: '#eeeeee',
