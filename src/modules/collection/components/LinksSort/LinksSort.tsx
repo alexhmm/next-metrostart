@@ -9,7 +9,7 @@ import {
 import { Box } from '@mui/material';
 
 // Icons
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import DragHandleIcon from '@mui/icons-material/DragHandle';
 
 // Stores
 import useCollectionStore from '../../collection.store';
@@ -43,8 +43,8 @@ const LinkSortableItem: FC<LinkSortableItemProps> = (props) => {
       {...props.provided.draggableProps}
       {...props.provided.dragHandleProps}
     >
-      <div className={styles['link-sortable-item-indicator']}>
-        <DragIndicatorIcon />
+      <div className={styles['link-sortable-item-handle']}>
+        <DragHandleIcon />
       </div>
       <div className={styles['link-sortable-item-content']}>
         {props.link.icon && (
